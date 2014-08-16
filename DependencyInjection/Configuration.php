@@ -4,6 +4,7 @@ namespace Velikonja\LabbyBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use SyncFS\Configuration\Configuration as SyncFSConfiguration;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
@@ -20,10 +21,26 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('velikonja_labby');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->append($this->addSyncFsNode())
+            ->end();
 
         return $treeBuilder;
+    }
+
+    /**
+     * Returns configuration node of Velikona/SyncFS library.
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     */
+    private function addSyncFsNode()
+    {
+        $config  = new SyncFSConfiguration();
+        $builder = new TreeBuilder();
+        $node    = $builder->root('fs');
+
+
+        return $config->getConfigNode($node);
     }
 }
