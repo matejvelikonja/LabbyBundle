@@ -19,18 +19,21 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('velikonja_labby');
+        $rootNode    = $treeBuilder->root('velikonja_labby');
 
         $rootNode
             ->children()
-                ->append($this->addSyncFsNode())
+                ->append(
+                    $this->addSyncFsNode()
+                )
+                ->scalarNode('db')->end()
             ->end();
 
         return $treeBuilder;
     }
 
     /**
-     * Returns configuration node of Velikona/SyncFS library.
+     * Returns configuration node of Velikonja/SyncFS library.
      *
      * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
      */
