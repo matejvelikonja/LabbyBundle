@@ -16,7 +16,7 @@
     "require": {
         "php": ">=5.3.3",
 
-        "velikonja/sync-fs": "dev-master"
+        "velikonja/sync-fs": "1.0.x-dev"
     },
 
     "autoload": {
