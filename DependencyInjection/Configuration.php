@@ -26,7 +26,17 @@ class Configuration implements ConfigurationInterface
                 ->append(
                     $this->addSyncFsNode()
                 )
-                ->scalarNode('db')->end()
+                ->arrayNode('db')
+                    ->children()
+                        ->scalarNode('driver')->end()
+                        ->scalarNode('dbname')->end()
+                        ->scalarNode('host')->defaultValue('localhost')->end()
+                        ->scalarNode('port')->defaultNull()->end()
+                        ->scalarNode('user')->defaultValue('root')->end()
+                        ->scalarNode('password')->defaultNull()->end()
+                        ->scalarNode('charset')->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;

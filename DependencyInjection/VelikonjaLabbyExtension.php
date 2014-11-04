@@ -4,6 +4,7 @@ namespace Velikonja\LabbyBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
@@ -12,7 +13,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class VelikonjaLabbyExtension extends Extension
+class VelikonjaLabbyExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritDoc}
@@ -26,5 +27,23 @@ class VelikonjaLabbyExtension extends Extension
         $loader->load('services.xml');
 
         $container->setParameter('velikonja_labby.config', $config);
+        $container->setParameter('velikonja_labby.config.db', $config['db']);
+    }
+
+    /**
+     * Allow an extension to prepend the extension configurations.
+     *
+     * @param ContainerBuilder $container
+     */
+    public function prepend(ContainerBuilder $container)
+    {
+        $bundles = $container->getParameter('kernel.bundles');
+
+        if (isset($bundles['DoctrineBundle'])) {
+            $doctrineConfig = $container->getExtensionConfig('doctrine');
+            $dbalConfig     = $doctrineConfig[0]['dbal'];
+
+            $container->prependExtensionConfig('velikonja_labby', array('db' => $dbalConfig));
+        }
     }
 }
