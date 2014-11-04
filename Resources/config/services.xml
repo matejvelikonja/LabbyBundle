@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="velikonja_labby.service.syncer.class">Velikonja\LabbyBundle\Service\Syncer</parameter>
         <parameter key="velikonja_labby.service.dumper.class">Velikonja\LabbyBundle\Database\MySqlDumper</parameter>
+        <parameter key="velikonja_labby.service.importer.class">Velikonja\LabbyBundle\Database\MySqlImporter</parameter>
     </parameters>
 
     <services>
@@ -14,6 +15,9 @@
             <argument>%velikonja_labby.config%</argument>
         </service>
         <service id="velikonja_labby.service.dumper" class="%velikonja_labby.service.dumper.class%">
+            <argument>%velikonja_labby.config.db%</argument>
+        </service>
+        <service id="velikonja_labby.service.importer" class="%velikonja_labby.service.importer.class%">
             <argument>%velikonja_labby.config.db%</argument>
         </service>
     </services>
