@@ -25,5 +25,11 @@
         }
     },
 
-    "target-dir": "Velikonja/LabbyBundle"
+    "target-dir": "Velikonja/LabbyBundle",
+    
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
 }
