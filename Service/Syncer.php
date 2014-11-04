@@ -3,6 +3,7 @@
 namespace Velikonja\LabbyBundle\Service;
 
 use Symfony\Component\Console\Output\OutputInterface;
+use Velikonja\LabbyBundle\Database\SyncerDb;
 use SyncFS\Syncer as SyncerFs;
 
 class Syncer
@@ -13,17 +14,18 @@ class Syncer
     private $syncerFs;
 
     /**
-     * @var SyncerDb
+     * @var SyncerDb | null
      */
     private $syncerDb;
 
-    public function __construct(array $config)
+    /**
+     * @param SyncerFs $syncerFs
+     * @param SyncerDb $syncerDb
+     */
+    public function __construct(SyncerFs $syncerFs, SyncerDb $syncerDb = null)
     {
-        $this->syncerFs = new SyncerFs($config['fs']);
-
-        if (isset($config['db'])) {
-            $this->syncerDb = new SyncerDb($config['db']);
-        }
+        $this->syncerFs = $syncerFs;
+        $this->syncerDb = $syncerDb;
 
     }
 
@@ -36,14 +38,25 @@ class Syncer
         $this->syncFs($output);
     }
 
+    /**
+     * @param OutputInterface $output
+     */
     public function syncFs(OutputInterface $output)
     {
         $this->syncerFs->sync($output);
-
     }
 
+    /**
+     * @param OutputInterface $output
+     *
+     * @throws \Exception
+     */
     public function syncDb(OutputInterface $output)
     {
+        if (! $this->syncerDb) {
+            throw new \RuntimeException('Syncer DB is not defined.');
+        }
+
         $this->syncerDb->sync($output);
     }
 }

@@ -41,7 +41,7 @@ class DumpCommand extends ContainerAwareCommand
     {
         $filePath = $input->getArgument('file');
         $compress = $input->getOption('compress');
-        $dumper   = $this->getContainer()->get('velikonja_labby.service.dumper');
+        $dumper   = $this->getContainer()->get('velikonja_labby.service.db.dumper');
 
         $dump = $dumper->dump($output);
 

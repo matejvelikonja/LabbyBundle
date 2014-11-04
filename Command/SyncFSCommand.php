@@ -6,9 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class SyncCommand extends ContainerAwareCommand
+class SyncFSCommand extends ContainerAwareCommand
 {
-    const COMMAND_NAME = 'sync:fs';
+    const COMMAND_NAME = 'labby:sync:fs';
 
     /**
      * Configure command.

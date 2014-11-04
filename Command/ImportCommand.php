@@ -16,7 +16,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ImportCommand extends ContainerAwareCommand
 {
     const COMMAND_NAME    = 'labby:database:import';
-    const ARG_CONFIG_PATH = 'config-path';
 
     /**
      * Configure command.
@@ -27,6 +26,10 @@ class ImportCommand extends ContainerAwareCommand
             ->setName(self::COMMAND_NAME)
             ->setDescription('Import SQL dump to local database.')
             ->addArgument('file', InputArgument::REQUIRED, 'Location of SQL dump (compressed or uncompressed).');
+
+        /**
+         * TODO: prevent running this command on certain environment (like production).
+         */
     }
 
     /**
@@ -54,7 +57,7 @@ class ImportCommand extends ContainerAwareCommand
             $tempFile = true;
         }
 
-        $importer = $this->getContainer()->get('velikonja_labby.service.importer');
+        $importer = $this->getContainer()->get('velikonja_labby.service.db.importer');
 
         $importer->import($filePath);
 
