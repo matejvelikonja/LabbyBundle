@@ -1,0 +1,29 @@
+{
+    "name":        "velikonja/labby-bundle",
+    "type":        "symfony-bundle",
+    "description": "Sync one server to another.",
+    "keywords":    ["sync", "database", "assets", "symfony", "bundle", "twig"],
+    "homepage":    "https://github.com/matejvelikonja/LabbyBundle",
+    "license":     "MIT",
+
+    "authors": [
+        {
+            "name": "Matej Velikonja",
+            "homepage": "https://github.com/matejvelikonja"
+        }
+    ],
+
+    "require": {
+        "php": ">=5.3.3",
+
+        "velikonja/sync-fs": "dev-master"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "Velikonja\\LabbyBundle": ""
+        }
+    },
+
+    "target-dir": "Velikonja/LabbyBundle"
+}
