@@ -5,6 +5,7 @@ namespace Velikonja\LabbyBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -26,7 +27,8 @@ class DumpCommand extends ContainerAwareCommand
         $this
             ->setName(self::COMMAND_NAME)
             ->setDescription('Dump local database.')
-            ->addArgument('file', InputArgument::OPTIONAL, 'File path to write to.');
+            ->addArgument('file', InputArgument::OPTIONAL, 'File path to write to.')
+            ->addOption('compress', 'c', InputOption::VALUE_NONE, 'Compress file. Works only if file argument is given.');
     }
 
     /**
@@ -38,15 +40,23 @@ class DumpCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $filePath = $input->getArgument('file');
+        $compress = $input->getOption('compress');
         $dumper   = $this->getContainer()->get('velikonja_labby.service.dumper');
 
         $dump = $dumper->dump($output);
 
         if ($filePath) {
-            file_put_contents($filePath, $dump);
+            if ($compress) {
+                $zip = new \ZipArchive();
+                $zip->open($filePath, \ZipArchive::CREATE);
+                $zip->addFromString('dump.sql', $dump);
+                $zip->close();
+            } else {
+                file_put_contents($filePath, $dump);
+            }
+        } else {
+            $output->writeln($dump);
         }
-
-        $output->writeln($dump);
 
         $output->writeln('<info>Database successfully dumped!</info>');
     }
