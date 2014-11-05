@@ -58,6 +58,6 @@ class DumpCommand extends ContainerAwareCommand
             $output->writeln($dump);
         }
 
-        $output->writeln('<info>Database successfully dumped!</info>');
+        $output->writeln(sprintf('<info>Database successfully dumped to `%s`!</info>', realpath($filePath)));
     }
 }

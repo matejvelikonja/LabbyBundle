@@ -6,6 +6,8 @@
 
     <parameters>
         <parameter key="velikonja_labby.service.syncer.class">Velikonja\LabbyBundle\Service\Syncer</parameter>
+        <parameter key="velikonja_labby.remote.ssh.class">Velikonja\LabbyBundle\Remote\Ssh</parameter>
+        <parameter key="velikonja_labby.remote.scp.class">Velikonja\LabbyBundle\Remote\Scp</parameter>
         <parameter key="velikonja_labby.service.fs.syncer.class">SyncFS\Syncer</parameter>
         <parameter key="velikonja_labby.service.db.syncer.class">Velikonja\LabbyBundle\Database\SyncerDb</parameter>
         <parameter key="velikonja_labby.service.db.dumper.class">Velikonja\LabbyBundle\Database\MySqlDumper</parameter>
@@ -19,10 +21,19 @@
         <service id="velikonja_labby.service.db.syncer" class="%velikonja_labby.service.db.syncer.class%">
             <argument>%velikonja_labby.config.db%</argument>
             <argument type="service" id="velikonja_labby.service.db.importer"/>
+            <argument type="service" id="velikonja_labby.remote.ssh"/>
+            <argument type="service" id="velikonja_labby.remote.scp"/>
         </service>
         <service id="velikonja_labby.service.syncer" class="%velikonja_labby.service.syncer.class%">
             <argument type="service" id="velikonja_labby.service.fs.syncer"/>
             <argument type="service" id="velikonja_labby.service.db.syncer"/>
+        </service>
+
+        <service id="velikonja_labby.remote.ssh" class="%velikonja_labby.remote.ssh.class%">
+            <argument>%velikonja_labby.config.remote%</argument>
+        </service>
+        <service id="velikonja_labby.remote.scp" class="%velikonja_labby.remote.scp.class%">
+            <argument>%velikonja_labby.config.remote%</argument>
         </service>
 
         <service id="velikonja_labby.service.db.dumper" class="%velikonja_labby.service.db.dumper.class%">

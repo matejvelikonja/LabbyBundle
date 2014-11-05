@@ -63,7 +63,5 @@ class MySqlImporter
         if (! $process->isSuccessful()) {
             throw new DatabaseException($process->getErrorOutput());
         }
-
-        $process->getOutput();
     }
 }

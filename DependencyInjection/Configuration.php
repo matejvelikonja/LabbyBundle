@@ -23,7 +23,12 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('remote')->end()
+                ->arrayNode('remote')
+                    ->children()
+                        ->scalarNode('hostname')->end()
+                        ->scalarNode('path')->end()
+                    ->end()
+                ->end()
                 ->append(
                     $this->addSyncFsNode()
                 )
