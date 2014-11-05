@@ -66,17 +66,17 @@ class Ssh
     /**
      * Executes Symfony2 command on remote.
      *
-     * @param string          $name
+     * @param string          $executable
      * @param array           $arguments
      * @param OutputInterface $output
      *
      * @throws \Exception
      */
-    public function execSf($name, array $arguments = array(), OutputInterface $output = null)
+    public function execSf($executable, array $arguments = array(), OutputInterface $output = null)
     {
-        $command = $this->config['path'] . '/app/console ' . $name;
+        $executable = $this->config['path'] . '/app/console ' . $executable;
 
-        $this->processBuilder->add($command);
+        $this->processBuilder->add($executable);
 
         foreach ($arguments as $arg) {
             $this->processBuilder->add($arg);

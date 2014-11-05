@@ -42,10 +42,16 @@ class Scp
         $this->processBuilder = $processBuilder;
     }
 
+    /**
+     * @param string          $src
+     * @param string          $dst
+     * @param OutputInterface $output
+     *
+     * @throws \Exception
+     */
     public function copyFile($src, $dst, OutputInterface $output = null)
     {
-        $process = $this
-            ->processBuilder
+        $process = $this->processBuilder
             ->add($this->config['hostname'] . ':' . $src)
             ->add($dst)
             ->getProcess();

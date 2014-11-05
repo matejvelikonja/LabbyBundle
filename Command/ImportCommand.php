@@ -42,6 +42,7 @@ class ImportCommand extends ContainerAwareCommand
     {
         $filePath = $input->getArgument('file');
         $tempFile = false;
+        $zip      = $this->getContainer()->get('velikonja_labby.util.zip_archive');
 
         if (!file_exists($filePath)) {
             throw new \InvalidArgumentException(
@@ -52,8 +53,8 @@ class ImportCommand extends ContainerAwareCommand
             );
         }
 
-        if ($this->isZipped($filePath)) {
-            $filePath = $this->unzip($filePath);
+        if ($zip->isZipped($filePath)) {
+            $filePath = $zip->unzip($filePath);
             $tempFile = true;
         }
 
@@ -67,54 +68,5 @@ class ImportCommand extends ContainerAwareCommand
         }
 
         $output->writeln('<info>Database successfully imported!</info>');
-    }
-
-    /**
-     * @param string $filePath
-     *
-     * @return bool
-     */
-    private function isZipped($filePath)
-    {
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $type  = finfo_file($finfo, $filePath);
-
-        finfo_close($finfo);
-
-        return 'application/zip' === $type;
-    }
-
-    /**
-     * @param string $filePath
-     *
-     * @return string
-     */
-    private function unzip($filePath)
-    {
-        $compressedFileName = 'dump.sql';
-        $tmpDir             = sys_get_temp_dir();
-        $tmpFile            = $tmpDir . '/labby_' . uniqid() . '.sql';
-
-        $zip = new \ZipArchive();
-        $zip->open($filePath);
-
-        if (false === $zip->locateName($compressedFileName)) {
-            $zip->close();
-
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'File `%s` not found in ZIP archive `%s`.',
-                    $compressedFileName,
-                    $filePath
-                )
-            );
-        }
-
-        $zip->extractTo($tmpDir, $compressedFileName);
-        $zip->close();
-
-        rename($tmpDir . '/' . $compressedFileName, $tmpFile);
-
-        return $tmpFile;
     }
 }

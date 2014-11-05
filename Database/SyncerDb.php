@@ -6,14 +6,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Velikonja\LabbyBundle\Command\DumpCommand;
 use Velikonja\LabbyBundle\Remote\Ssh;
 use Velikonja\LabbyBundle\Remote\Scp;
+use Velikonja\LabbyBundle\Util\ZipArchive;
 
 class SyncerDb
 {
-    /**
-     * @var array
-     */
-    private $config;
-
     /**
      * @var MySqlImporter
      */
@@ -29,33 +25,55 @@ class SyncerDb
      */
     private $scp;
 
-    public function __construct(array $config, MySqlImporter $importer, Ssh $ssh, Scp $scp)
+    /**
+     * @var ZipArchive
+     */
+    private $zip;
+
+    /**
+     * @param MySqlImporter $importer
+     * @param Ssh           $ssh
+     * @param Scp           $scp
+     * @param ZipArchive    $zip
+     */
+    public function __construct(MySqlImporter $importer, Ssh $ssh, Scp $scp, ZipArchive $zip)
     {
-        $this->config   = $config;
         $this->importer = $importer;
         $this->ssh      = $ssh;
         $this->scp      = $scp;
+        $this->zip      = $zip;
     }
 
+    /**
+     * @param OutputInterface $output
+     *
+     * @throws DatabaseException
+     * @throws \Exception
+     */
     public function sync(OutputInterface $output)
     {
+        $remoteFile = 'dump-remote.zip';
+        $localFile  = 'dump-local.zip';
+
         $this->ssh->execSf(
             DumpCommand::COMMAND_NAME,
             array(
-                'dump-remote.zip',
+                $remoteFile,
                 '--compress',
             ),
             $output
         );
 
-        $this->scp->copyFile('dump-remote.zip', 'dump-local.zip', $output);
+        $this->scp->copyFile($remoteFile, $localFile, $output);
 
-        die(2);
+        $dump = $this->zip->unzip($localFile);
 
-        //TODO: unzip the file
+        $this->importer->import($dump);
 
-        $this->importer->import('dump-local.zip');
+        // cleanup
+        unlink($localFile);
+        unlink($dump);
 
-        throw new \Exception('Not implemented ' . __CLASS__ );
+        //TODO: remove remote file
     }
 }

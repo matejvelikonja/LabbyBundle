@@ -12,6 +12,7 @@
         <parameter key="velikonja_labby.service.db.syncer.class">Velikonja\LabbyBundle\Database\SyncerDb</parameter>
         <parameter key="velikonja_labby.service.db.dumper.class">Velikonja\LabbyBundle\Database\MySqlDumper</parameter>
         <parameter key="velikonja_labby.service.db.importer.class">Velikonja\LabbyBundle\Database\MySqlImporter</parameter>
+        <parameter key="velikonja_labby.util.zip_archive.class">Velikonja\LabbyBundle\Util\ZipArchive</parameter>
     </parameters>
 
     <services>
@@ -19,10 +20,10 @@
             <argument>%velikonja_labby.config.fs%</argument>
         </service>
         <service id="velikonja_labby.service.db.syncer" class="%velikonja_labby.service.db.syncer.class%">
-            <argument>%velikonja_labby.config.db%</argument>
             <argument type="service" id="velikonja_labby.service.db.importer"/>
             <argument type="service" id="velikonja_labby.remote.ssh"/>
             <argument type="service" id="velikonja_labby.remote.scp"/>
+            <argument type="service" id="velikonja_labby.util.zip_archive"/>
         </service>
         <service id="velikonja_labby.service.syncer" class="%velikonja_labby.service.syncer.class%">
             <argument type="service" id="velikonja_labby.service.fs.syncer"/>
@@ -43,5 +44,7 @@
             <argument>%velikonja_labby.config.db%</argument>
         </service>
 
+        <service id="velikonja_labby.util.zip_archive" class="%velikonja_labby.util.zip_archive.class%">
+        </service>
     </services>
 </container>
