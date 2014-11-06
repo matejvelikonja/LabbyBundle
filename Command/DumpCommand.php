@@ -42,15 +42,13 @@ class DumpCommand extends ContainerAwareCommand
         $filePath = $input->getArgument('file');
         $compress = $input->getOption('compress');
         $dumper   = $this->getContainer()->get('velikonja_labby.service.db.dumper');
+        $zip      = $this->getContainer()->get('velikonja_labby.util.zip_archive');
 
         $dump = $dumper->dump($output);
 
         if ($filePath) {
             if ($compress) {
-                $zip = new \ZipArchive();
-                $zip->open($filePath, \ZipArchive::CREATE);
-                $zip->addFromString('dump.sql', $dump);
-                $zip->close();
+                $zip->zip($filePath, $dump);
             } else {
                 file_put_contents($filePath, $dump);
             }

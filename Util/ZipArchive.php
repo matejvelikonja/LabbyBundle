@@ -72,4 +72,16 @@ class ZipArchive
 
         return $tmpFile;
     }
+
+    /**
+     * @param string $path
+     * @param string $content
+     */
+    public function zip($path, $content)
+    {
+        $zip = new \ZipArchive();
+        $zip->open($path, \ZipArchive::CREATE);
+        $zip->addFromString($this->compressedFileName, $content);
+        $zip->close();
+    }
 } 
