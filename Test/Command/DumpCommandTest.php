@@ -32,6 +32,4 @@ class DumpCommandTest extends CommandTestCase
         );
     }
 
-
 }
- 
