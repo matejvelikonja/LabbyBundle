@@ -2,6 +2,3 @@ composer.lock
 vendor/
 build/
 bin/
-
-Test/App/cache
-Test/App/logs

@@ -11,14 +11,15 @@ velikonja_labby:
       uploads:
         src: localhost:/tmp/labby-bundle-tests
         dst: web/codeCoverage2/
-  db:
+doctrine:
+  dbal:
     driver:   pdo_mysql
     host:     localhost
     port:     ~
     dbname:   test
     user:     root
     password: root
-    charset:   UTF8
+    charset:  UTF8
 
 #imports:
 #    - { resource: ../../../../Resources/config/services.yml }
