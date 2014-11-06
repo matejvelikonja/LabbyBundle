@@ -11,11 +11,13 @@
         syntaxCheck                 = "false"
         bootstrap                   = "./Test/bootstrap.php"
         >
+
     <testsuites>
         <testsuite name="LabbyBundle test suite">
             <directory>./Test</directory>
         </testsuite>
     </testsuites>
+
     <filter>
         <whitelist>
             <directory>./</directory>
@@ -25,6 +27,11 @@
             </exclude>
         </whitelist>
     </filter>
+
+    <php>
+        <server name="KERNEL_DIR" value="App/" />
+    </php>
+
     <logging>
         <log type="coverage-html" target="./build/codeCoverage" charset="UTF-8"
              yui="true" highlight="true"
