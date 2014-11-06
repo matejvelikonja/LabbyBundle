@@ -59,7 +59,6 @@ class Configuration implements ConfigurationInterface
         $builder = new TreeBuilder();
         $node    = $builder->root('fs');
 
-
         return $config->getConfigNode($node);
     }
 }

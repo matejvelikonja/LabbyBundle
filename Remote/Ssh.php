@@ -5,7 +5,6 @@ namespace Velikonja\LabbyBundle\Remote;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
-use SyncFS\Syncer as SyncerFs;
 
 class Ssh
 {
