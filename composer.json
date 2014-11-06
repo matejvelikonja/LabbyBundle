@@ -19,6 +19,11 @@
         "velikonja/sync-fs": "1.0.*@dev"
     },
 
+    "require-dev": {
+        "phpunit/phpunit": "~4.3",
+        "mikey179/vfsStream": "~1.4"
+    },
+
     "autoload": {
         "psr-0": {
             "Velikonja\\LabbyBundle": ""
@@ -29,7 +34,11 @@
     
     "minimum-stability": "dev",
     "prefer-stable": true,
-    
+
+    "config": {
+        "bin-dir": "bin"
+    },
+
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"

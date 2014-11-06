@@ -2,6 +2,11 @@
 
 namespace Velikonja\LabbyBundle\Util;
 
+/**
+ * Class ZipArchive
+ *
+ * @package Velikonja\LabbyBundle\Util
+ */
 class ZipArchive
 {
     /**
@@ -14,9 +19,14 @@ class ZipArchive
      */
     private $compressedFileName;
 
-    public function __construct()
+    /**
+     * @param string $tmpDir
+     *
+     * @throws \Exception
+     */
+    public function __construct($tmpDir = null)
     {
-        $this->tmpDir              = sys_get_temp_dir();
+        $this->tmpDir              = $tmpDir ?: sys_get_temp_dir();
         $this->compressedFileName = 'dump.sql';
 
         if (! is_writable($this->tmpDir)) {
@@ -76,12 +86,20 @@ class ZipArchive
     /**
      * @param string $path
      * @param string $content
+     *
+     * @throws \Exception
      */
     public function zip($path, $content)
     {
         $zip = new \ZipArchive();
         $zip->open($path, \ZipArchive::CREATE);
-        $zip->addFromString($this->compressedFileName, $content);
+
+        $res = $zip->addFromString($this->compressedFileName, $content);
+
+        if (! $res) {
+            throw new \Exception();
+        }
+
         $zip->close();
     }
 } 
