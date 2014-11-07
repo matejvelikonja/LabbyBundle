@@ -5,7 +5,6 @@ namespace Velikonja\LabbyBundle\Test\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\ApplicationTester;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-
 use Velikonja\LabbyBundle\Test\App\AppKernel;
 
 abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
@@ -71,5 +70,13 @@ abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
         if ($exitCode) {
             throw new \RuntimeException(trim($this->tester->getDisplay()));
         }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFixturesDir()
+    {
+        return __DIR__ . '/../fixtures';
     }
 }
