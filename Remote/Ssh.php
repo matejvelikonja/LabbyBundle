@@ -66,7 +66,7 @@ class Ssh
      * Executes Symfony2 command on remote.
      *
      * @param string          $executable
-     * @param array           $arguments
+     * @param string[]           $arguments
      * @param OutputInterface $output
      *
      * @throws \Exception
@@ -95,7 +95,7 @@ class Ssh
     /**
      * @param OutputInterface|null $output
      *
-     * @return callable|null
+     * @return \Closure|null
      */
     private function getCallback(OutputInterface $output = null)
     {

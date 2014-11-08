@@ -67,7 +67,7 @@ class Scp
     /**
      * @param OutputInterface|null $output
      *
-     * @return callable|null
+     * @return \Closure|null
      */
     private function getCallback(OutputInterface $output = null)
     {

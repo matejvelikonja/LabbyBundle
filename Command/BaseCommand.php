@@ -20,7 +20,7 @@ abstract class BaseCommand extends ContainerAwareCommand
     /**
      * Returns all roles.
      *
-     * @return array
+     * @return string[]
      */
     public static function all()
     {
