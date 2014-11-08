@@ -26,5 +26,12 @@ before_script:
           symfony/symfony:${SYMFONY_VERSION}
     - phpenv rehash
 
+    # Allow us to SSH passwordless to localhost
+    - ssh-keygen -f ~/.ssh/id_rsa -N ""
+    - cp ~/.ssh/{id_rsa.pub,authorized_keys}
+    # Creation of an SSH agent for testing forwarding
+    - eval $(ssh-agent)
+    - ssh-add
+
 script:
   - bin/phpunit
