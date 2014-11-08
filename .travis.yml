@@ -38,4 +38,8 @@ before_script:
     - ssh-add
 
 script:
-  - bin/phpunit
+  - bin/phpunit --coverage-clover=coverage.clover -d zend.enable_gc=0
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
