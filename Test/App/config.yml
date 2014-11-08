@@ -6,11 +6,12 @@ velikonja_labby:
   remote:
     hostname: localhost
     path:     /tmp/labby-bundle-tests
+#    ??sf_env:   prod
   fs:
     maps:
       uploads:
-        src: localhost:/tmp/labby-bundle-tests
-        dst: web/codeCoverage2/
+        src: localhost:/tmp/labby-bundle-tests/src
+        dst: /tmp/labby-bundle-tests/dst
 doctrine:
   dbal:
     driver:   pdo_mysql
