@@ -13,6 +13,10 @@ env:
     - SYMFONY_VERSION="2.5.*"
     - SYMFONY_VERSION="dev-master"
 
+addons:
+  ssh_known_hosts:
+    - localhost
+
 matrix:
   fast_finish: true
   allow_failures:
