@@ -23,6 +23,11 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->arrayNode('roles')
+                    ->treatNullLike(array())
+                    ->prototype('scalar')->end()
+                    ->defaultValue(array('remote'))
+                ->end()
                 ->arrayNode('remote')
                     ->children()
                         ->scalarNode('hostname')->end()

@@ -2,11 +2,10 @@
 
 namespace Velikonja\LabbyBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class SyncDBCommand extends ContainerAwareCommand
+class SyncDBCommand extends BaseCommand
 {
     const COMMAND_NAME = 'labby:sync:db';
 
@@ -17,7 +16,8 @@ class SyncDBCommand extends ContainerAwareCommand
     {
         $this
             ->setName(self::COMMAND_NAME)
-            ->setDescription("Run synchronization of database.");
+            ->setDescription("Run synchronization of database.")
+            ->setRoles(array(self::ROLE_LOCAL));
     }
 
     /**

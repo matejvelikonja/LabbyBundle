@@ -3,6 +3,7 @@ framework:
   test:   ~
 
 velikonja_labby:
+  roles: [ remote, local ]
   remote:
     hostname: localhost
     path:     /tmp/labby-bundle-tests

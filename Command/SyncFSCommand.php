@@ -2,11 +2,10 @@
 
 namespace Velikonja\LabbyBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class SyncFSCommand extends ContainerAwareCommand
+class SyncFSCommand extends BaseCommand
 {
     const COMMAND_NAME = 'labby:sync:fs';
 
@@ -17,7 +16,8 @@ class SyncFSCommand extends ContainerAwareCommand
     {
         $this
             ->setName(self::COMMAND_NAME)
-            ->setDescription("Run synchronization of filesystem maps.");
+            ->setDescription("Run synchronization of filesystem maps.")
+            ->setRoles(array(self::ROLE_LOCAL));
     }
 
     /**

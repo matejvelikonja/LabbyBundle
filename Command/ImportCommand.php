@@ -2,10 +2,10 @@
 
 namespace Velikonja\LabbyBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Velikonja\LabbyBundle\Roles;
 
 /**
  * Class ImportCommand
@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @package Velikonja\LabbyBundle\Command
  * @author  Matej Velikonja <matej@velikonja.si>
  */
-class ImportCommand extends ContainerAwareCommand
+class ImportCommand extends BaseCommand
 {
     const COMMAND_NAME    = 'labby:database:import';
 
@@ -25,11 +25,8 @@ class ImportCommand extends ContainerAwareCommand
         $this
             ->setName(self::COMMAND_NAME)
             ->setDescription('Import SQL dump to local database.')
-            ->addArgument('file', InputArgument::REQUIRED, 'Location of SQL dump (compressed or uncompressed).');
-
-        /**
-         * TODO: prevent running this command on certain environment (like production).
-         */
+            ->addArgument('file', InputArgument::REQUIRED, 'Location of SQL dump (compressed or uncompressed).')
+            ->setRoles(array(self::ROLE_LOCAL));
     }
 
     /**
