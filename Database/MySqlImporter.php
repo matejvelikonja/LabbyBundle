@@ -57,7 +57,13 @@ class MySqlImporter
 
         $dump = file_get_contents($file);
 
-        $process->setInput($dump);
+        if (method_exists($process, 'setInput')) {
+            $process->setInput($dump);
+        } else {
+            // support for SF2.3
+            $process->setStdin($dump);
+        }
+
         $process->run();
 
         if (! $process->isSuccessful()) {
