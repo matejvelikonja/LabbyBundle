@@ -8,6 +8,21 @@ use Velikonja\LabbyBundle\Command\ImportCommand;
 class ImportCommandTest extends CommandTestCase
 {
     /**
+     * Test file not found.
+     */
+    public function testIfCommandFailsWhenFileIsNotFound()
+    {
+        $exitCode = $this->tester->run(
+            array(
+                'command' => ImportCommand::COMMAND_NAME,
+                'file'    => '/non-existing-file.hopefully',
+            )
+        );
+
+        $this->assertEquals(1, $exitCode);
+    }
+
+    /**
      * Test simple execute of dump command.
      */
     public function testExecute()
