@@ -32,6 +32,11 @@ class SyncerDb
     private $zip;
 
     /**
+     * @var string
+     */
+    private $tmpDir;
+
+    /**
      * @param MySqlImporter $importer
      * @param Ssh           $ssh
      * @param Scp           $scp
