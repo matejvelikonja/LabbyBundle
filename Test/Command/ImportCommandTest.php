@@ -23,14 +23,21 @@ class ImportCommandTest extends CommandTestCase
     }
 
     /**
-     * Test simple execute of dump command.
+     * Test simple execute of import command.
+     *
+     * @param bool $compress
+     *
+     * @dataProvider getCompressedOptions
      */
-    public function testExecute()
+    public function testExecute($compress)
     {
+        $fileExt  = $compress ? 'zip' : 'sql';
+        $path     = $this->getFixturesDir() . '/test-dump.' . $fileExt;
+
         $exitCode = $this->tester->run(
             array(
                 'command' => ImportCommand::COMMAND_NAME,
-                'file'    => $this->getFixturesDir() . '/test-dump.sql',
+                'file'    => $path,
             ),
             array(
                 'verbosity' => OutputInterface::VERBOSITY_DEBUG
@@ -44,8 +51,18 @@ class ImportCommandTest extends CommandTestCase
         $this->assertRegExp(
             '/^Database successfully imported!$/',
             $display,
-            'Wrong output of dump command detected. Did it print the SQL dump?'
+            'Wrong output of import command detected.'
         );
     }
 
+    /**
+     * @return array
+     */
+    public function getCompressedOptions()
+    {
+        return array(
+            array(false),
+            array(true),
+        );
+    }
 }
