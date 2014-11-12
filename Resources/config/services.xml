@@ -13,6 +13,10 @@
         <parameter key="velikonja_labby.service.db.dumper.class">Velikonja\LabbyBundle\Database\Mysql\MySqlDumper</parameter>
         <parameter key="velikonja_labby.service.db.importer.class">Velikonja\LabbyBundle\Database\Mysql\MySqlImporter</parameter>
         <parameter key="velikonja_labby.util.zip_archive.class">Velikonja\LabbyBundle\Util\ZipArchive</parameter>
+        <parameter key="velikonja_labby.event.listener.password_resetter.class">Velikonja\LabbyBundle\Event\Listener\PasswordResetter</parameter>
+
+        <!-- Constants -->
+        <parameter key="velikonja_labby.constants.event.post_import" type="constant">Velikonja\LabbyBundle\Events::POST_IMPORT</parameter>
     </parameters>
 
     <services>
@@ -24,6 +28,7 @@
             <argument type="service" id="velikonja_labby.remote.ssh"/>
             <argument type="service" id="velikonja_labby.remote.scp"/>
             <argument type="service" id="velikonja_labby.util.zip_archive"/>
+            <argument type="service" id="event_dispatcher"/>
         </service>
         <service id="velikonja_labby.service.syncer" class="%velikonja_labby.service.syncer.class%">
             <argument type="service" id="velikonja_labby.service.fs.syncer"/>
@@ -45,6 +50,11 @@
         </service>
 
         <service id="velikonja_labby.util.zip_archive" class="%velikonja_labby.util.zip_archive.class%">
+        </service>
+
+        <!-- Listeners -->
+        <service id="velikonja_labby.event.listener.password_resetter" class="%velikonja_labby.event.listener.password_resetter.class%">
+            <tag name="kernel.event_listener" event="%velikonja_labby.constants.event.post_import%" method="onPostImport"/>
         </service>
     </services>
 </container>

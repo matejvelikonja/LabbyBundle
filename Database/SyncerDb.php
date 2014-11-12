@@ -4,7 +4,10 @@ namespace Velikonja\LabbyBundle\Database;
 
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Velikonja\LabbyBundle\Command\DumpCommand;
+use Velikonja\LabbyBundle\Event\SyncEvent;
+use Velikonja\LabbyBundle\Events;
 use Velikonja\LabbyBundle\Remote\Ssh;
 use Velikonja\LabbyBundle\Remote\Scp;
 use Velikonja\LabbyBundle\Util\ZipArchive;
@@ -37,20 +40,27 @@ class SyncerDb
     private $tmpDir;
 
     /**
-     * @param ImporterInterface $importer
-     * @param Ssh               $ssh
-     * @param Scp               $scp
-     * @param ZipArchive        $zip
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
+     * @param ImporterInterface        $importer
+     * @param Ssh                      $ssh
+     * @param Scp                      $scp
+     * @param ZipArchive               $zip
+     * @param EventDispatcherInterface $eventDispatcher
      *
      * @throws \Exception
      */
-    public function __construct(ImporterInterface $importer, Ssh $ssh, Scp $scp, ZipArchive $zip)
+    public function __construct(ImporterInterface $importer, Ssh $ssh, Scp $scp, ZipArchive $zip, EventDispatcherInterface $eventDispatcher)
     {
-        $this->importer = $importer;
-        $this->ssh      = $ssh;
-        $this->scp      = $scp;
-        $this->zip      = $zip;
-        $this->tmpDir  = sys_get_temp_dir();
+        $this->importer        = $importer;
+        $this->ssh             = $ssh;
+        $this->scp             = $scp;
+        $this->zip             = $zip;
+        $this->tmpDir          = sys_get_temp_dir();
+        $this->eventDispatcher = $eventDispatcher;
 
         if (! is_writable($this->tmpDir)) {
             throw new \Exception(
@@ -108,6 +118,8 @@ class SyncerDb
                 $dumpFile
             )
         );
+
+        $this->eventDispatcher->dispatch(Events::POST_IMPORT, new SyncEvent($output));
 
         $output->writeln('Cleaning up...');
 

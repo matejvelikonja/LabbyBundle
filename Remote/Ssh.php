@@ -66,7 +66,7 @@ class Ssh
      * Executes Symfony2 command on remote.
      *
      * @param string          $executable
-     * @param string[]           $arguments
+     * @param string[]        $arguments
      * @param OutputInterface $output
      *
      * @throws \Exception

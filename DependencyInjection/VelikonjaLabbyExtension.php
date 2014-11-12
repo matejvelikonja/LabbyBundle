@@ -2,6 +2,7 @@
 
 namespace Velikonja\LabbyBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -31,6 +32,17 @@ class VelikonjaLabbyExtension extends Extension implements PrependExtensionInter
         $container->setParameter('velikonja_labby.config.fs', $config['fs']);
         $container->setParameter('velikonja_labby.config.remote', $config['remote']);
         $container->setParameter('velikonja_labby.config.roles', $config['roles']);
+
+        if (! isset($config['password_reset'])) {
+            $container->removeDefinition('velikonja_labby.event.listener.password_resetter');
+        }
+
+        if ($container->hasDefinition('velikonja_labby.event.listener.password_resetter')) {
+            $bundles = $container->getParameter('kernel.bundles');
+            if (! isset($bundles['FOSUserBundle'])) {
+                throw new InvalidConfigurationException('FOSUserBundle is required for `password_reset` option.');
+            }
+        }
     }
 
     /**

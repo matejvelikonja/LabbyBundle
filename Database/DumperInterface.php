@@ -10,4 +10,4 @@ interface DumperInterface
      * @return string
      */
     public function dump();
-} 
+}

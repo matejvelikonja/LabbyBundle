@@ -10,4 +10,4 @@ interface ImporterInterface
      * @param string $file
      */
     public function import($file);
-} 
+}
