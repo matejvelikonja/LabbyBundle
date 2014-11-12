@@ -52,10 +52,10 @@ class DumpCommand extends BaseCommand
             } else {
                 file_put_contents($filePath, $dump);
             }
+            $output->writeln(sprintf('<info>Database successfully dumped to `%s`!</info>', realpath($filePath)));
         } else {
             $output->writeln($dump);
         }
 
-        $output->writeln(sprintf('<info>Database successfully dumped to `%s`!</info>', realpath($filePath)));
     }
 }

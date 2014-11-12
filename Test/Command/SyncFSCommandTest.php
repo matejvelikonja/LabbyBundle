@@ -3,51 +3,22 @@
 namespace Velikonja\LabbyBundle\Test\Command;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Tester\ApplicationTester;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Filesystem\Filesystem;
-use Velikonja\LabbyBundle\Test\App\AppKernel;
 use Velikonja\LabbyBundle\Command\SyncFSCommand;
 
 class SyncFSCommandTest extends CommandTestCase
 {
     /**
-     * Temporary test dir, set also in config.yml
-     *
-     * @var string
-     */
-    private $tmpDir;
-
-    /**
      * Prepare environment.
      */
     public function setUp()
     {
-        $application = new Application(
-            new AppKernel('test', true)
-        );
-        $application->setAutoExit(false);
+        parent::setUp();
 
-        $this->tester = new ApplicationTester($application);
-        $this->tmpDir = '/tmp/labby-bundle-tests';
-
-        $fs = new Filesystem();
-        $fs->remove($this->tmpDir);
-        $fs->mkdir(
+        $this->fs->mkdir(
             array(
-                $this->tmpDir,
                 $this->tmpDir . '/src',
             )
         );
-    }
-
-    /**
-     * Clean up.
-     */
-    public function tearDown()
-    {
-        $fs = new Filesystem();
-        $fs->remove($this->tmpDir);
     }
 
     /**

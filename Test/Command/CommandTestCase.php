@@ -5,6 +5,7 @@ namespace Velikonja\LabbyBundle\Test\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\ApplicationTester;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Filesystem\Filesystem;
 use Velikonja\LabbyBundle\Test\App\AppKernel;
 
 abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
@@ -13,6 +14,18 @@ abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
      * @var ApplicationTester
      */
     protected $tester;
+
+    /**
+     * Temporary test dir, set also in config.yml
+     *
+     * @var string
+     */
+    protected $tmpDir;
+
+    /**
+     * @var Filesystem
+     */
+    protected $fs;
 
     /**
      * Prepare environment.
@@ -25,9 +38,12 @@ abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
         $application->setAutoExit(false);
 
         $this->tester = new ApplicationTester($application);
+        $this->tmpDir = '/tmp/labby-bundle-tests';
+        $this->fs     = new Filesystem();
 
         $this->dropTestDB();
         $this->createTestDB();
+        $this->createTempDir();
     }
 
     /**
@@ -36,6 +52,7 @@ abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         $this->dropTestDB();
+        $this->removeTempDir();
     }
 
     /**
@@ -70,6 +87,27 @@ abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
         if ($exitCode) {
             throw new \RuntimeException(trim($this->tester->getDisplay()));
         }
+    }
+
+    /**
+     * Creates temporary folder.
+     */
+    private function createTempDir()
+    {
+        $this->fs->remove($this->tmpDir);
+        $this->fs->mkdir(
+            array(
+                $this->tmpDir,
+            )
+        );
+    }
+
+    /**
+     * Remove temporary folder.
+     */
+    private function removeTempDir()
+    {
+        $this->fs->remove($this->tmpDir);
     }
 
     /**
