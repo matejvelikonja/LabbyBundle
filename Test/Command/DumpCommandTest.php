@@ -34,14 +34,21 @@ class DumpCommandTest extends CommandTestCase
 
     /**
      * Test simple execute of dump command to file.
+     *
+     * @param bool $compress
+     *
+     * @dataProvider getCompressedOptions
      */
-    public function testExecuteToFile()
+    public function testExecuteToFile($compress)
     {
-        $path = $this->tmpDir . '/dump-to-file-test.sql';
+        $fileExt  = $compress ? 'zip' : 'sql';
+        $path     = $this->tmpDir . '/dump-to-file-test.' . $fileExt;
+
         $exitCode = $this->tester->run(
             array(
                 'command' => DumpCommand::COMMAND_NAME,
                 'file'    => $path,
+                '--compress'  => $compress,
             ),
             array(
                 'verbosity' => OutputInterface::VERBOSITY_DEBUG
@@ -59,6 +66,17 @@ class DumpCommandTest extends CommandTestCase
         );
 
         $this->assertFileExists($path, sprintf('File was not dumped to `%s`.', $path));
+    }
+
+    /**
+     * @return array
+     */
+    public function getCompressedOptions()
+    {
+        return array(
+            array(false),
+            array(true),
+        );
     }
 
 }
