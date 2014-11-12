@@ -23,19 +23,6 @@ abstract class BaseCommand extends ContainerAwareCommand
     private $roles = array();
 
     /**
-     * Returns all roles.
-     *
-     * @return string[]
-     */
-    public static function all()
-    {
-        return array(
-            self::ROLE_LOCAL,
-            self::ROLE_REMOTE,
-        );
-    }
-
-    /**
      * Sets roles that are allowed to execute command.
      *
      * @param array $roles
