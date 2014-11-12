@@ -12,7 +12,7 @@ use Velikonja\LabbyBundle\Util\ZipArchive;
 class SyncerDb
 {
     /**
-     * @var MySqlImporter
+     * @var ImporterInterface
      */
     private $importer;
 
@@ -37,14 +37,14 @@ class SyncerDb
     private $tmpDir;
 
     /**
-     * @param MySqlImporter $importer
-     * @param Ssh           $ssh
-     * @param Scp           $scp
-     * @param ZipArchive    $zip
+     * @param ImporterInterface $importer
+     * @param Ssh               $ssh
+     * @param Scp               $scp
+     * @param ZipArchive        $zip
      *
      * @throws \Exception
      */
-    public function __construct(MySqlImporter $importer, Ssh $ssh, Scp $scp, ZipArchive $zip)
+    public function __construct(ImporterInterface $importer, Ssh $ssh, Scp $scp, ZipArchive $zip)
     {
         $this->importer = $importer;
         $this->ssh      = $ssh;

@@ -18,6 +18,11 @@ abstract class BaseCommand extends ContainerAwareCommand
     const ROLE_REMOTE = 'remote';
 
     /**
+     * @var array
+     */
+    private $roles = array();
+
+    /**
      * Returns all roles.
      *
      * @return string[]
@@ -29,11 +34,6 @@ abstract class BaseCommand extends ContainerAwareCommand
             self::ROLE_REMOTE,
         );
     }
-
-    /**
-     * @var array
-     */
-    private $roles = array();
 
     /**
      * Sets roles that are allowed to execute command.

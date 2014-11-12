@@ -1,10 +1,12 @@
 <?php
 
-namespace Velikonja\LabbyBundle\Database;
+namespace Velikonja\LabbyBundle\Database\Mysql;
 
 use Symfony\Component\Process\ProcessBuilder;
+use Velikonja\LabbyBundle\Database\DatabaseException;
+use Velikonja\LabbyBundle\Database\ImporterInterface;
 
-class MySqlDumper
+class MySqlImporter implements ImporterInterface
 {
     /**
      * @var \Symfony\Component\Process\ProcessBuilder
@@ -24,7 +26,7 @@ class MySqlDumper
     public function __construct(array $options, ProcessBuilder $processBuilder = null, $executable = null)
     {
         if (! $executable) {
-            $executable = '/usr/bin/mysqldump';
+            $executable = '/usr/bin/mysql';
         }
 
         $this->executable = $executable;
@@ -39,7 +41,7 @@ class MySqlDumper
                 '--user=' . $options['user'],
                 '--password=' . $options['password'],
                 '--host=' . $options['host'],
-                $options['dbname'],
+                '--database=' . $options['dbname'],
             ));
 
         $this->processBuilder = $processBuilder;
@@ -47,20 +49,27 @@ class MySqlDumper
     }
 
     /**
-     * @throws DatabaseException
+     * @param string $file
      *
-     * @return string
+     * @throws DatabaseException
      */
-    public function dump()
+    public function import($file)
     {
         $process = $this->processBuilder->getProcess();
+
+        $dump = file_get_contents($file);
+
+        if (method_exists($process, 'setInput')) {
+            $process->setInput($dump);
+        } else {
+            // support for SF2.3
+            $process->setStdin($dump);
+        }
 
         $process->run();
 
         if (! $process->isSuccessful()) {
             throw new DatabaseException($process->getErrorOutput());
         }
-
-        return $process->getOutput();
     }
 }

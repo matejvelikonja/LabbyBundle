@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
         <parameter key="velikonja_labby.service.syncer.class">Velikonja\LabbyBundle\Service\Syncer</parameter>
@@ -10,8 +10,8 @@
         <parameter key="velikonja_labby.remote.scp.class">Velikonja\LabbyBundle\Remote\Scp</parameter>
         <parameter key="velikonja_labby.service.fs.syncer.class">SyncFS\Syncer</parameter>
         <parameter key="velikonja_labby.service.db.syncer.class">Velikonja\LabbyBundle\Database\SyncerDb</parameter>
-        <parameter key="velikonja_labby.service.db.dumper.class">Velikonja\LabbyBundle\Database\MySqlDumper</parameter>
-        <parameter key="velikonja_labby.service.db.importer.class">Velikonja\LabbyBundle\Database\MySqlImporter</parameter>
+        <parameter key="velikonja_labby.service.db.dumper.class">Velikonja\LabbyBundle\Database\Mysql\MySqlDumper</parameter>
+        <parameter key="velikonja_labby.service.db.importer.class">Velikonja\LabbyBundle\Database\Mysql\MySqlImporter</parameter>
         <parameter key="velikonja_labby.util.zip_archive.class">Velikonja\LabbyBundle\Util\ZipArchive</parameter>
     </parameters>
 
