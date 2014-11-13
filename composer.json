@@ -21,6 +21,9 @@
 
     "require-dev": {
         "phpunit/phpunit": "~4.3",
+        "squizlabs/php_codesniffer": "~2.0",
+        "phpmd/phpmd": "~2.1",
+        "sebastian/phpcpd": "~2.0",
 
         "symfony/symfony": "~2.3",
         "sensio/framework-extra-bundle": "~2.3",
