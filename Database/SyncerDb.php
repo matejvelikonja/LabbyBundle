@@ -53,8 +53,13 @@ class SyncerDb
      *
      * @throws \Exception
      */
-    public function __construct(ImporterInterface $importer, Ssh $ssh, Scp $scp, ZipArchive $zip, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        ImporterInterface $importer,
+        Ssh $ssh,
+        Scp $scp,
+        ZipArchive $zip,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->importer        = $importer;
         $this->ssh             = $ssh;
         $this->scp             = $scp;
@@ -70,7 +75,7 @@ class SyncerDb
     }
 
     /**
-     * @param OutputInterface $output
+     * @param null|OutputInterface $output
      *
      * @throws DatabaseException
      * @throws \Exception

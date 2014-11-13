@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ImportCommand extends BaseCommand
 {
-    const COMMAND_NAME    = 'labby:database:import';
+    const COMMAND_NAME = 'labby:database:import';
 
     /**
      * Configure command.

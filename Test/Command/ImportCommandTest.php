@@ -31,8 +31,8 @@ class ImportCommandTest extends CommandTestCase
      */
     public function testExecute($compress)
     {
-        $fileExt  = $compress ? 'zip' : 'sql';
-        $path     = $this->getFixturesDir() . '/test-dump.' . $fileExt;
+        $fileExt = $compress ? 'zip' : 'sql';
+        $path    = $this->getFixturesDir() . '/test-dump.' . $fileExt;
 
         $exitCode = $this->tester->run(
             array(
@@ -56,7 +56,7 @@ class ImportCommandTest extends CommandTestCase
     }
 
     /**
-     * @return array
+     * @return array|boolean[][]
      */
     public function getCompressedOptions()
     {

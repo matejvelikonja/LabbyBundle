@@ -16,7 +16,7 @@ class SyncDBCommand extends BaseCommand
     {
         $this
             ->setName(self::COMMAND_NAME)
-            ->setDescription("Run synchronization of database.")
+            ->setDescription('Run synchronization of database.')
             ->setRoles(array(self::ROLE_LOCAL));
     }
 

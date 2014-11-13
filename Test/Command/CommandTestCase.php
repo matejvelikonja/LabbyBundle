@@ -80,7 +80,7 @@ abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
     {
         $exitCode = $this->tester->run(array(
             'command' => 'doctrine:database:create'
-        ),array(
+        ), array(
             'verbosity' => OutputInterface::VERBOSITY_DEBUG
         ));
 

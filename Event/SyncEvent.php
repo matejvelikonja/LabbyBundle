@@ -14,7 +14,7 @@ class SyncEvent extends Event
     private $output;
 
     /**
-     * @param OutputInterface $output
+     * @param null|OutputInterface $output
      */
     public function __construct(OutputInterface $output = null)
     {

@@ -47,5 +47,4 @@ class AppKernel extends Kernel
     {
         return __DIR__ .'/../../build/logs';
     }
-
 }

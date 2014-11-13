@@ -20,13 +20,13 @@ class ZipArchive
     private $compressedFileName;
 
     /**
-     * @param string $tmpDir
+     * @param null|string $tmpDir
      *
      * @throws \Exception
      */
     public function __construct($tmpDir = null)
     {
-        $this->tmpDir              = $tmpDir ?: sys_get_temp_dir();
+        $this->tmpDir             = $tmpDir ?: sys_get_temp_dir();
         $this->compressedFileName = 'dump.sql';
 
         if (! is_writable($this->tmpDir)) {

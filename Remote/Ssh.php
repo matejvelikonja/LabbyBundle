@@ -19,9 +19,9 @@ class Ssh
     private $processBuilder;
 
     /**
-     * @param array          $config
-     * @param ProcessBuilder $processBuilder
-     * @param string|null    $executable
+     * @param array               $config
+     * @param null|ProcessBuilder $processBuilder
+     * @param string|null         $executable
      */
     public function __construct(array $config, ProcessBuilder $processBuilder = null, $executable = null)
     {
@@ -45,8 +45,8 @@ class Ssh
     }
 
     /**
-     * @param string          $command
-     * @param OutputInterface $output
+     * @param string               $command
+     * @param null|OutputInterface $output
      *
      * @throws \Exception
      */

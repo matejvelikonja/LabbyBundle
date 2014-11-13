@@ -19,9 +19,9 @@ class MySqlImporter implements ImporterInterface
     private $executable;
 
     /**
-     * @param array          $options
-     * @param ProcessBuilder $processBuilder
-     * @param string         $executable
+     * @param array               $options
+     * @param null|ProcessBuilder $processBuilder
+     * @param null|string         $executable
      */
     public function __construct(array $options, ProcessBuilder $processBuilder = null, $executable = null)
     {

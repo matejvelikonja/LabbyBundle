@@ -19,8 +19,8 @@ class Syncer
     private $syncerDb;
 
     /**
-     * @param SyncerFs $syncerFs
-     * @param SyncerDb $syncerDb
+     * @param SyncerFs      $syncerFs
+     * @param null|SyncerDb $syncerDb
      */
     public function __construct(SyncerFs $syncerFs, SyncerDb $syncerDb = null)
     {

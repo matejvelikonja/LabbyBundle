@@ -16,7 +16,7 @@ class SyncFSCommand extends BaseCommand
     {
         $this
             ->setName(self::COMMAND_NAME)
-            ->setDescription("Run synchronization of filesystem maps.")
+            ->setDescription('Run synchronization of filesystem maps.')
             ->setRoles(array(self::ROLE_LOCAL));
     }
 

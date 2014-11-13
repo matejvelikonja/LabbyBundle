@@ -50,5 +50,4 @@ class SyncFSCommandTest extends CommandTestCase
             'Did not sync. Have you changed config.yml?'
         );
     }
-
 }

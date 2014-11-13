@@ -41,8 +41,8 @@ class DumpCommandTest extends CommandTestCase
      */
     public function testExecuteToFile($compress)
     {
-        $fileExt  = $compress ? 'zip' : 'sql';
-        $path     = $this->tmpDir . '/dump-to-file-test.' . $fileExt;
+        $fileExt = $compress ? 'zip' : 'sql';
+        $path    = $this->tmpDir . '/dump-to-file-test.' . $fileExt;
 
         $exitCode = $this->tester->run(
             array(
@@ -69,7 +69,7 @@ class DumpCommandTest extends CommandTestCase
     }
 
     /**
-     * @return array
+     * @return array|boolean[][]
      */
     public function getCompressedOptions()
     {
@@ -78,5 +78,4 @@ class DumpCommandTest extends CommandTestCase
             array(true),
         );
     }
-
 }
