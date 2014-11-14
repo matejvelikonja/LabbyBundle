@@ -65,13 +65,13 @@ class Ssh
     /**
      * Executes Symfony2 command on remote.
      *
-     * @param string          $executable
-     * @param string[]        $arguments
-     * @param OutputInterface $output
+     * @param string        $executable
+     * @param string[]      $arguments
+     * @param callable|null $callback
      *
      * @throws \Exception
      */
-    public function execSf($executable, array $arguments = array(), OutputInterface $output = null)
+    public function execSf($executable, array $arguments = array(), $callback = null)
     {
         $executable = $this->config['path'] . '/app/console ' . $executable;
 
@@ -83,34 +83,10 @@ class Ssh
 
         $process = $this->processBuilder->getProcess();
 
-        $process->run(
-            $this->getCallback($output)
-        );
+        $process->run($callback);
 
         if (! $process->isSuccessful()) {
             throw new \Exception($process->getErrorOutput());
         }
-    }
-
-    /**
-     * @param OutputInterface|null $output
-     *
-     * @return \Closure|null
-     */
-    private function getCallback(OutputInterface $output = null)
-    {
-        $callback = null;
-
-        if ($output) {
-            $callback = function ($type, $buffer) use ($output) {
-                if (Process::ERR === $type) {
-                    $output->writeln("<error>$buffer</error>");
-                } else {
-                    $output->writeln("$buffer");
-                }
-            };
-        }
-
-        return $callback;
     }
 }

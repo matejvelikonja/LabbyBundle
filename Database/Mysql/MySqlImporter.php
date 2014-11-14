@@ -2,6 +2,7 @@
 
 namespace Velikonja\LabbyBundle\Database\Mysql;
 
+use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 use Velikonja\LabbyBundle\Database\DatabaseException;
 use Velikonja\LabbyBundle\Database\ImporterInterface;
@@ -49,11 +50,16 @@ class MySqlImporter implements ImporterInterface
     }
 
     /**
-     * @param string $file
+     * Import dump to database.
+     *
+     * @param string        $file
+     * @param null|callable $callback
      *
      * @throws DatabaseException
+     *
+     * @return void
      */
-    public function import($file)
+    public function import($file, $callback = null)
     {
         $process = $this->processBuilder->getProcess();
 
@@ -66,7 +72,11 @@ class MySqlImporter implements ImporterInterface
             $process->setStdin($dump);
         }
 
-        $process->run();
+        if ($callback) {
+            call_user_func($callback, Process::OUT, 'Running shell command: ' . $process->getCommandLine());
+        }
+
+        $process->run($callback);
 
         if (! $process->isSuccessful()) {
             throw new DatabaseException($process->getErrorOutput());
