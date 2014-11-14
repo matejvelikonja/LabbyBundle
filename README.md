@@ -43,7 +43,7 @@ velikonja_labby:
   fs:
     maps:
       uploads:
-        src: example.com:/var/www/uploads/
+        src: example.com:/var/www/uploads/ # Mind the trailing slash
         dst: web/uploads/
 ```
 
