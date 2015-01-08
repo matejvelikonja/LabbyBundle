@@ -41,6 +41,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('hostname')->end()
                         ->scalarNode('path')->end()
+                        ->scalarNode('env')->defaultValue('prod')->end()
                     ->end()
                 ->end()
                 ->append(

@@ -77,6 +77,9 @@ class Ssh
 
         $this->processBuilder->add($executable);
 
+        // append sf environment to be run on remote
+        $arguments[] = '--env=' . $this->config['env'];
+
         foreach ($arguments as $arg) {
             $this->processBuilder->add($arg);
         }

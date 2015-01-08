@@ -13,7 +13,7 @@ LabbyBundle is Symfony2 bundle for retrieving database and assets from one stage
 **Add LabbyBundle by running this command**
 
 ```bash
-$ composer.phar require velikonja/labby-bundle "*"
+$ composer.phar require velikonja/labby-bundle "dev-master"
 ```
 
 **Enable the bundle in AppKernel**
@@ -26,7 +26,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Velikonja\LabbyBundle\VelikonjaLabbyBundle(),,
+        new Velikonja\LabbyBundle\VelikonjaLabbyBundle(),
     );
 }
 ```
@@ -44,6 +44,7 @@ velikonja_labby:
   remote:
     hostname: example.com  # Server where the remote is hosted. 
     path:     /var/www/app # Path to application on remote.
+#   env:      prod         # SF env to be run on remote
   fs:
     maps:
       uploads:
