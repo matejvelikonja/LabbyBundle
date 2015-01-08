@@ -40,9 +40,9 @@ class SyncFSCommandTest extends CommandTestCase
         $this->assertEquals(0, $exitCode, $display);
 
         $this->assertRegExp(
-            '/Finished!/',
+            '/Finished in [0-9\.]+ seconds!/',
             $display,
-            'Wrong output of dump command detected. Did it print the SQL dump?'
+            'Wrong output of sync:fs command detected.'
         );
 
         $this->assertTrue(
