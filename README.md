@@ -1,5 +1,9 @@
 # LabbyBundle
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/matejvelikonja/LabbyBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/matejvelikonja/LabbyBundle/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/matejvelikonja/LabbyBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/matejvelikonja/LabbyBundle/?branch=master)
+[![Build Status](https://travis-ci.org/matejvelikonja/LabbyBundle.svg?branch=master)](https://travis-ci.org/matejvelikonja/LabbyBundle)
+
 LabbyBundle is Symfony2 bundle for retrieving database and assets from one stage to another.
 
 **Warning** Bundle is in early stage of development.
