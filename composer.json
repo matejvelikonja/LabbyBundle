@@ -1,7 +1,7 @@
 {
     "name":        "velikonja/labby-bundle",
     "type":        "symfony-bundle",
-    "description": "Sync one server to another.",
+    "description": "Symfony2 bundle for retrieving database and assets from one stage to another.",
     "keywords":    ["sync", "database", "assets", "symfony", "bundle", "twig"],
     "homepage":    "https://github.com/matejvelikonja/LabbyBundle",
     "license":     "MIT",
@@ -16,7 +16,7 @@
     "require": {
         "php": ">=5.3.3",
 
-        "velikonja/sync-fs": "1.0.*@dev"
+        "velikonja/sync-fs": "~0.2"
     },
 
     "require-dev": {
