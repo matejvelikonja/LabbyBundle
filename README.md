@@ -35,8 +35,8 @@ public function registerBundles()
 
 ```yml
 velikonja_labby:
-#  password_reset is automatically enabled if FOSUserbundle is enabled.
-#  By default it changes admin's password to admin. 
+   password_reset: ~
+#  By default it changes admin's password to admin.
 #  password_reset:
 #    users: [ {username: admin, password: admin}, {username: admin2, password: admin2} ]
 

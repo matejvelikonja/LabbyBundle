@@ -54,6 +54,8 @@
 
         <!-- Listeners -->
         <service id="velikonja_labby.event.listener.password_resetter" class="%velikonja_labby.event.listener.password_resetter.class%">
+            <argument type="service" id="fos_user.util.user_manipulator"/>
+            <argument><!-- is set in VelikonjaLabbyExtension --></argument>
             <tag name="kernel.event_listener" event="%velikonja_labby.constants.event.post_import%" method="onPostImport"/>
         </service>
     </services>

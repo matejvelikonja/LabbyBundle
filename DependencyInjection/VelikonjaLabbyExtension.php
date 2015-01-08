@@ -42,6 +42,9 @@ class VelikonjaLabbyExtension extends Extension implements PrependExtensionInter
             if (! isset($bundles['FOSUserBundle'])) {
                 throw new InvalidConfigurationException('FOSUserBundle is required for `password_reset` option.');
             }
+
+            $definition = $container->getDefinition('velikonja_labby.event.listener.password_resetter');
+            $definition->replaceArgument(1, $config['password_reset']['users']);
         }
     }
 
