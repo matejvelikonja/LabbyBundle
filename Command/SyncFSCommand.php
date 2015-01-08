@@ -4,6 +4,7 @@ namespace Velikonja\LabbyBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 class SyncFSCommand extends BaseCommand
 {
@@ -30,10 +31,19 @@ class SyncFSCommand extends BaseCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $syncer = $this->getContainer()->get('velikonja_labby.service.syncer');
+        $syncer    = $this->getContainer()->get('velikonja_labby.service.syncer');
+        $stopwatch = new Stopwatch();
 
+        $stopwatch->start('sync_fs');
         $syncer->syncFs($output);
+        $event = $stopwatch->stop('sync_fs');
 
-        $output->writeln('<info>Finished!</info>');
+        $output->writeln('');
+        $output->writeln(
+            sprintf(
+                '<info>Finished in %.2f seconds!</info>',
+                $event->getDuration() / 1000
+            )
+        );
     }
 }
