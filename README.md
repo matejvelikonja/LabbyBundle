@@ -52,6 +52,24 @@ velikonja_labby:
         dst: web/uploads/
 ```
 
+**Use the command to sync**
+
+Warning: before you can first sync with remote, you have to deploy the code and configuration to remote.
+
+Sync assets and database:
+```bash
+$ app/console labby:sync
+```
+
+Sync only DB:
+```bash
+$ app/console labby:sync:db
+```
+Sync only assets:
+```bash
+$ app/console labby:sync:fs
+```
+
 ## Contributing
 
 **Install dependencies**
