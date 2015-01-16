@@ -10,6 +10,10 @@ LabbyBundle is Symfony2 bundle for retrieving database and assets from one stage
 
 ## Installation
 
+**Prerequisites**
+
+* SSH connection to the remote server.
+
 **Add LabbyBundle by running this command**
 
 ```bash
