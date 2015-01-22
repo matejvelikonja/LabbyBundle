@@ -48,6 +48,7 @@ class Configuration implements ConfigurationInterface
                     $this->addSyncFsNode()
                 )
                 ->arrayNode('db')
+                    // copy from doctrine dbal config
                     ->children()
                         ->scalarNode('driver')->end()
                         ->scalarNode('dbname')->end()
