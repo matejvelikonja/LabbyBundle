@@ -59,7 +59,7 @@ class VelikonjaLabbyExtension extends Extension implements PrependExtensionInter
 
         if (isset($bundles['DoctrineBundle'])) {
             $doctrineConfig = $container->getExtensionConfig('doctrine');
-            $dbalConfig     = $doctrineConfig[0]['dbal'];
+            $dbalConfig     = $doctrineConfig[0]['dbal'] ?: null;
 
             $container->prependExtensionConfig('velikonja_labby', array('db' => $dbalConfig));
         }
