@@ -39,6 +39,7 @@ public function registerBundles()
 
 ```yml
 velikonja_labby:
+#  process_timeout: 300    # Timeout for each external process run (import, dump, ssh, scp, ...).
    password_reset: ~
 #  By default it changes admin's password to admin.
 #  password_reset:
