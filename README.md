@@ -50,10 +50,14 @@ velikonja_labby:
     path:     /var/www/app # Path to application on remote.
 #   env:      prod         # SF env to be run on remote
   fs:
-    maps:
-      uploads: # you can define more different mappings
+#   timeout: 60            # Number of seconds in which one mapping (not all of them) sync timeouts.
+    maps:                  # You can define more different mappings
+      uploads: 
         src: example.com:/var/www/uploads/ # Mind the trailing slash
         dst: web/uploads/
+      data:
+        src: example.com:/var/www/data/
+        dst: app/data/
 ```
 
 **Use the command to sync**
@@ -87,6 +91,8 @@ $ composer.phar install
 ```bash
 $ bin/phpunit
 ```
+
+*Check `.travis.yml` for more information about setting up test environment.*
 
 **Extra**
 

@@ -37,16 +37,20 @@
 
         <service id="velikonja_labby.remote.ssh" class="%velikonja_labby.remote.ssh.class%">
             <argument>%velikonja_labby.config.remote%</argument>
+            <argument>%velikonja_labby.config.process_timeout%</argument>
         </service>
         <service id="velikonja_labby.remote.scp" class="%velikonja_labby.remote.scp.class%">
             <argument>%velikonja_labby.config.remote%</argument>
+            <argument>%velikonja_labby.config.process_timeout%</argument>
         </service>
 
         <service id="velikonja_labby.service.db.dumper" class="%velikonja_labby.service.db.dumper.class%">
             <argument>%velikonja_labby.config.db%</argument>
+            <argument>%velikonja_labby.config.process_timeout%</argument>
         </service>
         <service id="velikonja_labby.service.db.importer" class="%velikonja_labby.service.db.importer.class%">
             <argument>%velikonja_labby.config.db%</argument>
+            <argument>%velikonja_labby.config.process_timeout%</argument>
         </service>
 
         <service id="velikonja_labby.util.zip_archive" class="%velikonja_labby.util.zip_archive.class%">

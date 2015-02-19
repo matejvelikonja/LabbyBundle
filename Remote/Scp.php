@@ -20,10 +20,11 @@ class Scp
 
     /**
      * @param array               $config
-     * @param null|ProcessBuilder $processBuilder
+     * @param int                 $timeout
      * @param string|null         $executable
+     * @param null|ProcessBuilder $processBuilder
      */
-    public function __construct(array $config, ProcessBuilder $processBuilder = null, $executable = null)
+    public function __construct(array $config, $timeout = 60, $executable = null, ProcessBuilder $processBuilder = null)
     {
         $this->config = $config;
 
@@ -36,6 +37,7 @@ class Scp
         }
 
         $processBuilder
+            ->setTimeout($timeout)
             ->setPrefix($executable);
 
         $this->processBuilder = $processBuilder;

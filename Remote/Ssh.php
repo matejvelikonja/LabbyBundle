@@ -3,7 +3,6 @@
 namespace Velikonja\LabbyBundle\Remote;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 class Ssh
@@ -20,10 +19,11 @@ class Ssh
 
     /**
      * @param array               $config
-     * @param null|ProcessBuilder $processBuilder
+     * @param int                 $timeout
      * @param string|null         $executable
+     * @param null|ProcessBuilder $processBuilder
      */
-    public function __construct(array $config, ProcessBuilder $processBuilder = null, $executable = null)
+    public function __construct(array $config, $timeout = 60, $executable = null, ProcessBuilder $processBuilder = null)
     {
         $this->config = $config;
 
@@ -36,6 +36,7 @@ class Ssh
         }
 
         $processBuilder
+            ->setTimeout($timeout)
             ->setPrefix($executable)
             ->setArguments(array(
                 $config['hostname']

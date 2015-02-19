@@ -32,6 +32,7 @@ class VelikonjaLabbyExtension extends Extension implements PrependExtensionInter
         $container->setParameter('velikonja_labby.config.fs', $config['fs']);
         $container->setParameter('velikonja_labby.config.remote', $config['remote']);
         $container->setParameter('velikonja_labby.config.roles', $config['roles']);
+        $container->setParameter('velikonja_labby.config.process_timeout', $config['process_timeout']);
 
         if (! isset($config['password_reset'])) {
             $container->removeDefinition('velikonja_labby.event.listener.password_resetter');

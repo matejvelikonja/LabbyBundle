@@ -20,10 +20,11 @@ class MySqlDumper implements DumperInterface
 
     /**
      * @param array               $options
-     * @param null|ProcessBuilder $processBuilder
+     * @param int                 $timeout
      * @param null|string         $executable
+     * @param null|ProcessBuilder $processBuilder
      */
-    public function __construct(array $options, ProcessBuilder $processBuilder = null, $executable = null)
+    public function __construct(array $options, $timeout = 60, $executable = null, ProcessBuilder $processBuilder = null)
     {
         if (! $executable) {
             $executable = '/usr/bin/mysqldump';
@@ -36,6 +37,7 @@ class MySqlDumper implements DumperInterface
         }
 
         $processBuilder
+            ->setTimeout($timeout)
             ->setPrefix($this->executable)
             ->setArguments(array(
                 '--user=' . $options['user'],

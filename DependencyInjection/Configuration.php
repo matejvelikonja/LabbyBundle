@@ -32,6 +32,7 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->scalarNode('process_timeout')->defaultValue(5 * 60)->end()
                 ->arrayNode('roles')
                     ->treatNullLike(array())
                     ->prototype('scalar')->end()

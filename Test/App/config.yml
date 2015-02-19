@@ -3,12 +3,14 @@ framework:
   test:   ~
 
 velikonja_labby:
-  roles: [ remote, local ]
+  process_timeout: 30
+  roles:           [ remote, local ]
   remote:
     hostname: localhost
     path:     /tmp/labby-bundle-tests
 #    ??sf_env:   prod
   fs:
+    timeout: 30
     maps:
       uploads:
         src: localhost:/tmp/labby-bundle-tests/src
