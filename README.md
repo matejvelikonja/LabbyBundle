@@ -51,7 +51,7 @@ velikonja_labby:
 #   env:      prod         # SF env to be run on remote
   fs:
     maps:
-      uploads:
+      uploads: # you can define more different mappings
         src: example.com:/var/www/uploads/ # Mind the trailing slash
         dst: web/uploads/
 ```
