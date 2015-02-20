@@ -25,8 +25,12 @@ class MySqlImporter implements ImporterInterface
      * @param null|string         $executable
      * @param null|ProcessBuilder $processBuilder
      */
-    public function __construct(array $options, $timeout = 60, $executable = null, ProcessBuilder $processBuilder = null)
-    {
+    public function __construct(
+        array $options,
+        $timeout = 60,
+        $executable = null,
+        ProcessBuilder $processBuilder = null
+    ) {
         if (! $executable) {
             $executable = '/usr/bin/mysql';
         }
@@ -38,7 +42,7 @@ class MySqlImporter implements ImporterInterface
         }
 
         $processBuilder
-            ->setTimeout(60)
+            ->setTimeout($timeout)
             ->setPrefix($this->executable)
             ->setArguments(array(
                 '--user=' . $options['user'],

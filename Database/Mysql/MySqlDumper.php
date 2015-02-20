@@ -24,8 +24,12 @@ class MySqlDumper implements DumperInterface
      * @param null|string         $executable
      * @param null|ProcessBuilder $processBuilder
      */
-    public function __construct(array $options, $timeout = 60, $executable = null, ProcessBuilder $processBuilder = null)
-    {
+    public function __construct(
+        array $options,
+        $timeout = 60,
+        $executable = null,
+        ProcessBuilder $processBuilder = null
+    ) {
         if (! $executable) {
             $executable = '/usr/bin/mysqldump';
         }
