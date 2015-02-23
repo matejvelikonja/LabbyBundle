@@ -40,6 +40,8 @@ abstract class BaseCommand extends ContainerAwareCommand
     }
 
     /**
+     * TODO: check if this can be moved to event
+     *
      * @throws \Exception
      *
      * @return bool

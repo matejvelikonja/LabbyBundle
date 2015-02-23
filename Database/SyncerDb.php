@@ -4,11 +4,8 @@ namespace Velikonja\LabbyBundle\Database;
 
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Process\Process;
 use Velikonja\LabbyBundle\Command\DumpCommand;
-use Velikonja\LabbyBundle\Event\SyncEvent;
-use Velikonja\LabbyBundle\Events;
 use Velikonja\LabbyBundle\Remote\Ssh;
 use Velikonja\LabbyBundle\Remote\Scp;
 use Velikonja\LabbyBundle\Util\ZipArchive;
@@ -41,16 +38,10 @@ class SyncerDb
     private $tmpDir;
 
     /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
-    /**
-     * @param ImporterInterface        $importer
-     * @param Ssh                      $ssh
-     * @param Scp                      $scp
-     * @param ZipArchive               $zip
-     * @param EventDispatcherInterface $eventDispatcher
+     * @param ImporterInterface $importer
+     * @param Ssh               $ssh
+     * @param Scp               $scp
+     * @param ZipArchive        $zip
      *
      * @throws \Exception
      */
@@ -58,17 +49,16 @@ class SyncerDb
         ImporterInterface $importer,
         Ssh $ssh,
         Scp $scp,
-        ZipArchive $zip,
-        EventDispatcherInterface $eventDispatcher
-    ) {
-        $this->importer        = $importer;
-        $this->ssh             = $ssh;
-        $this->scp             = $scp;
-        $this->zip             = $zip;
-        $this->tmpDir          = sys_get_temp_dir();
-        $this->eventDispatcher = $eventDispatcher;
+        ZipArchive $zip
+    )
+    {
+        $this->importer = $importer;
+        $this->ssh      = $ssh;
+        $this->scp      = $scp;
+        $this->zip      = $zip;
+        $this->tmpDir   = sys_get_temp_dir();
 
-        if (! is_writable($this->tmpDir)) {
+        if (!is_writable($this->tmpDir)) {
             throw new \Exception(
                 sprintf('Temporary directory `%s` is unreadable.', $this->tmpDir)
             );
@@ -133,8 +123,6 @@ class SyncerDb
             $output,
             1
         );
-
-        $this->eventDispatcher->dispatch(Events::POST_IMPORT, new SyncEvent($output));
 
         $this->write('Cleaning up...', $output);
 

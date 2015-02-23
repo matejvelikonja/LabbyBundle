@@ -40,11 +40,6 @@ public function registerBundles()
 ```yml
 velikonja_labby:
 #  process_timeout: 300    # Timeout for each external process run (import, dump, ssh, scp, ...).
-   password_reset: ~
-#  By default it changes admin's password to admin.
-#  password_reset:
-#    users: [ {username: admin, password: admin}, {username: admin2, password: admin2} ]
-
 #  roles: [ remote, local ]
   remote:
     hostname: example.com  # Server where the remote is hosted. 
@@ -59,6 +54,11 @@ velikonja_labby:
       data:
         src: example.com:/var/www/data/
         dst: app/data/
+#  event_commands:
+#    pre_sync:
+#      - shell: "whoami"
+#    post_sync:
+#      - sf: "cache:clear"
 ```
 
 **Use the command to sync**

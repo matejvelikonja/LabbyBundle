@@ -3,8 +3,11 @@
 namespace Velikonja\LabbyBundle\Service;
 
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Velikonja\LabbyBundle\Database\SyncerDb;
 use SyncFS\Syncer as SyncerFs;
+use Velikonja\LabbyBundle\Event\SyncEvent;
+use Velikonja\LabbyBundle\Events;
 
 class Syncer
 {
@@ -19,13 +22,24 @@ class Syncer
     private $syncerDb;
 
     /**
-     * @param SyncerFs      $syncerFs
-     * @param null|SyncerDb $syncerDb
+     * @var EventDispatcherInterface
      */
-    public function __construct(SyncerFs $syncerFs, SyncerDb $syncerDb = null)
-    {
-        $this->syncerFs = $syncerFs;
-        $this->syncerDb = $syncerDb;
+    private $eventDispatcher;
+
+    /**
+     * @param SyncerFs                 $syncerFs
+     * @param null|SyncerDb            $syncerDb
+     * @param EventDispatcherInterface $eventDispatcher
+     */
+    public function __construct(
+        SyncerFs $syncerFs,
+        SyncerDb $syncerDb = null,
+        EventDispatcherInterface $eventDispatcher
+    ) {
+        $this->syncerFs        = $syncerFs;
+        $this->syncerDb        = $syncerDb;
+        $this->eventDispatcher = $eventDispatcher;
+
 
     }
 
@@ -34,8 +48,10 @@ class Syncer
      */
     public function sync(OutputInterface $output)
     {
+        $this->eventDispatcher->dispatch(Events::PRE_SYNC, new SyncEvent($output));
         $this->syncDb($output);
         $this->syncFs($output);
+        $this->eventDispatcher->dispatch(Events::POST_SYNC, new SyncEvent($output));
     }
 
     /**
@@ -43,7 +59,9 @@ class Syncer
      */
     public function syncFs(OutputInterface $output)
     {
+        $this->eventDispatcher->dispatch(Events::PRE_SYNC_FS, new SyncEvent($output));
         $this->syncerFs->sync($output);
+        $this->eventDispatcher->dispatch(Events::POST_SYNC_FS, new SyncEvent($output));
     }
 
     /**
@@ -57,6 +75,8 @@ class Syncer
             throw new \RuntimeException('Syncer DB is not defined.');
         }
 
+        $this->eventDispatcher->dispatch(Events::PRE_SYNC_DB, new SyncEvent($output));
         $this->syncerDb->sync($output);
+        $this->eventDispatcher->dispatch(Events::POST_SYNC_DB, new SyncEvent($output));
     }
 }
