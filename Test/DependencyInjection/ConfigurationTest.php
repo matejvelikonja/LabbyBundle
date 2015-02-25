@@ -1,0 +1,46 @@
+<?php
+
+namespace Velikonja\LabbyBundle\Test\DependencyInjection;
+
+use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\Yaml\Yaml;
+use Velikonja\LabbyBundle\DependencyInjection\Configuration;
+
+class ConfigurationTest extends \PHPUnit_Framework_TestCase
+{
+    /**
+     * Tests example configuration. Will throw exception if does not validate.
+     *
+     * @param string $path
+     *
+     * @dataProvider getValidConfigurationsPaths
+     */
+    public function testValidConfigurations($path)
+    {
+        $config        = Yaml::parse($path);
+        $processor     = new Processor();
+        $configuration = new Configuration();
+
+        $processor->processConfiguration(
+            $configuration,
+            $config
+        );
+
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @return array
+     */
+    public function getValidConfigurationsPaths()
+    {
+        $files = glob(__DIR__ . '/../fixtures/configs/valid/*.yml');
+        $args  = array();
+
+        foreach ($files as $file) {
+            $args[] = array($file);
+        }
+
+        return $args;
+    }
+}

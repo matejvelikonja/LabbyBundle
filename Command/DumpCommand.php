@@ -31,7 +31,8 @@ class DumpCommand extends BaseCommand
                 'compress',
                 'c',
                 InputOption::VALUE_NONE,
-                'Compress file. Works only if file argument is given.')
+                'Compress file. Works only if file argument is given.'
+            )
             ->setRoles(array(self::ROLE_REMOTE));
     }
 
