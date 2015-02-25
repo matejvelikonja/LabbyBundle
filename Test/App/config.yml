@@ -1,3 +1,6 @@
+imports:
+    - { resource: parameters.yml }
+
 framework:
   secret: OmgItIsASecretOfThieBundleTest
   test:   ~
@@ -17,13 +20,11 @@ velikonja_labby:
         dst: /tmp/labby-bundle-tests/dst
 doctrine:
   dbal:
-    driver:   pdo_mysql
-    host:     localhost
-    port:     ~
-    dbname:   test
-    user:     root
-    password: ~
+    driver:   %database_driver%
+    host:     %database_host%
+    port:     %database_port%
+    dbname:   %database_name%
+    user:     %database_user%
+    password: %database_password%
     charset:  UTF8
 
-#imports:
-#    - { resource: ../../../../Resources/config/services.yml }
