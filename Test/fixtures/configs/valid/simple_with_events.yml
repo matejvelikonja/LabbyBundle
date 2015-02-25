@@ -1,0 +1,10 @@
+velikonja_labby:
+  remote:
+    hostname: localhost
+    path:     /tmp/labby-bundle-tests
+  event_commands:
+      pre_sync:
+        - shell: "ls -lah"
+        - sf: "--version"
+      post_sync:
+        - shell: "whmoami"

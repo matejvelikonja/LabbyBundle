@@ -30,11 +30,50 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param string $path
+     *
+     * @dataProvider getInvalidConfigurationsPaths
+     *
+     * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
+    public function testInvalidConfigurations($path)
+    {
+        $config        = Yaml::parse($path);
+        $processor     = new Processor();
+        $configuration = new Configuration();
+
+        $processor->processConfiguration(
+            $configuration,
+            $config
+        );
+
+        $this->assertTrue(true);
+    }
+
+    /**
      * @return array
      */
     public function getValidConfigurationsPaths()
     {
-        $files = glob(__DIR__ . '/../fixtures/configs/valid/*.yml');
+        return $this->getConfigurationsPaths('valid');
+    }
+
+    /**
+     * @return array
+     */
+    public function getInvalidConfigurationsPaths()
+    {
+        return $this->getConfigurationsPaths('invalid');
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return array
+     */
+    public function getConfigurationsPaths($type)
+    {
+        $files = glob(__DIR__ . sprintf('/../fixtures/configs/%s/*.yml', $type));
         $args  = array();
 
         foreach ($files as $file) {

@@ -1,0 +1,7 @@
+velikonja_labby:
+  remote:
+    hostname: localhost
+    path:     /tmp/labby-bundle-tests
+  event_commands:
+      un-existing-event:
+        - shell: "ls -lah"
