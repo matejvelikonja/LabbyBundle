@@ -29,9 +29,9 @@
             <argument type="service" id="velikonja_labby.util.zip_archive"/>
         </service>
         <service id="velikonja_labby.service.syncer" class="%velikonja_labby.service.syncer.class%">
+            <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="velikonja_labby.service.fs.syncer"/>
             <argument type="service" id="velikonja_labby.service.db.syncer"/>
-            <argument type="service" id="event_dispatcher"/>
         </service>
 
         <service id="velikonja_labby.remote.ssh" class="%velikonja_labby.remote.ssh.class%">

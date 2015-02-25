@@ -1,12 +1,17 @@
 <?php
 
-class ExecutorRunnerTest extends PHPUnit_Framework_TestCase
+namespace Velikonja\LabbyBundle\Test\Executor;
+
+use Velikonja\LabbyBundle\Events;
+use Velikonja\LabbyBundle\Executor\ExecutorRunner;
+
+class ExecutorRunnerTest extends \PHPUnit_Framework_TestCase
 {
     public function testIfAllEventsAreReturned()
     {
-        $runner    = new \Velikonja\LabbyBundle\Executor\ExecutorRunner(array());
+        $runner    = new ExecutorRunner(array());
         $events    = $runner->getSubscribedEvents();
-        $allEvents = \Velikonja\LabbyBundle\Events::all();
+        $allEvents = Events::all();
 
         $this->assertEquals(
             count($allEvents),
@@ -16,17 +21,17 @@ class ExecutorRunnerTest extends PHPUnit_Framework_TestCase
 
     public function testIfContainsPostSyncEventMethodName()
     {
-        $runner = new \Velikonja\LabbyBundle\Executor\ExecutorRunner(array());
+        $runner = new ExecutorRunner(array());
         $events = $runner->getSubscribedEvents();
 
-        $this->assertContains(\Velikonja\LabbyBundle\Events::POST_SYNC, $events);
+        $this->assertContains(Events::POST_SYNC, $events);
     }
 
     public function testIfContainsPostSyncEventName()
     {
-        $runner = new \Velikonja\LabbyBundle\Executor\ExecutorRunner(array());
+        $runner = new ExecutorRunner(array());
         $events = $runner->getSubscribedEvents();
 
-        $this->assertArrayHasKey(\Velikonja\LabbyBundle\Events::POST_SYNC, $events);
+        $this->assertArrayHasKey(Events::POST_SYNC, $events);
     }
 }

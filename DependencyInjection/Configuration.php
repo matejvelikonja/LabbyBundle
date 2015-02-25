@@ -61,7 +61,7 @@ class Configuration implements ConfigurationInterface
                         })
                     ->end()
                     ->validate()
-                        ->ifTrue(function($events) {
+                        ->ifTrue(function ($events) {
                             $allEvents = Events::all();
                             foreach ($events as $name => $value) {
                                 if (! in_array($name, $allEvents)) {

@@ -50,8 +50,7 @@ class SyncerDb
         Ssh $ssh,
         Scp $scp,
         ZipArchive $zip
-    )
-    {
+    ) {
         $this->importer = $importer;
         $this->ssh      = $ssh;
         $this->scp      = $scp;

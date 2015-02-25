@@ -27,20 +27,18 @@ class Syncer
     private $eventDispatcher;
 
     /**
+     * @param EventDispatcherInterface $eventDispatcher
      * @param SyncerFs                 $syncerFs
      * @param null|SyncerDb            $syncerDb
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
+        EventDispatcherInterface $eventDispatcher,
         SyncerFs $syncerFs,
-        SyncerDb $syncerDb = null,
-        EventDispatcherInterface $eventDispatcher
+        SyncerDb $syncerDb = null
     ) {
         $this->syncerFs        = $syncerFs;
         $this->syncerDb        = $syncerDb;
         $this->eventDispatcher = $eventDispatcher;
-
-
     }
 
     /**
