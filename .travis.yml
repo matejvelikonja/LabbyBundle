@@ -38,7 +38,7 @@ before_script:
     - eval $(ssh-agent)
     - ssh-add
     # Create sample config file
-    - cp Test/App/parameters.yml.dist Test/App/parameters.yml
+    - cp Test/app/parameters.yml.dist Test/app/parameters.yml
 
 script:
   - bin/phpunit --coverage-clover=coverage.clover -d zend.enable_gc=0
