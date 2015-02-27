@@ -57,7 +57,7 @@
 
         <!-- Executors -->
         <service id="velikonja_labby.executor.executor_runner" class="%velikonja_labby.executor.executor_runner.class%">
-            <argument>%velikonja_labby.config.event_commands%</argument>
+            <argument>%velikonja_labby.config.event_executors%</argument>
             <tag name="kernel.event_subscriber" />
         </service>
         <service id="velikonja_labby.executor.shell" class="%velikonja_labby.executor.shell.class%">

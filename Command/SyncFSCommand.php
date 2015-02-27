@@ -16,9 +16,9 @@ class SyncFSCommand extends BaseCommand
     protected function configure()
     {
         $this
+            ->setRoles(array(self::ROLE_LOCAL))
             ->setName(self::COMMAND_NAME)
-            ->setDescription('Run synchronization of filesystem maps.')
-            ->setRoles(array(self::ROLE_LOCAL));
+            ->setDescription('Run synchronization of filesystem maps.');
     }
 
     /**

@@ -54,7 +54,7 @@ velikonja_labby:
       data:
         src: example.com:/var/www/data/
         dst: app/data/
-#  event_commands:
+#  event_executors:
 #    pre_sync:
 #      - shell: "whoami"
 #    post_sync:

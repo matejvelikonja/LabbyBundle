@@ -29,7 +29,7 @@ class VelikonjaLabbyExtension extends Extension implements PrependExtensionInter
         $container->setParameter('velikonja_labby.config', $config);
         $container->setParameter('velikonja_labby.config.db', $config['db']);
         $container->setParameter('velikonja_labby.config.fs', $config['fs']);
-        $container->setParameter('velikonja_labby.config.event_commands', $config['event_commands']);
+        $container->setParameter('velikonja_labby.config.event_executors', $config['event_executors']);
         $container->setParameter('velikonja_labby.config.remote', $config['remote']);
         $container->setParameter('velikonja_labby.config.roles', $config['roles']);
         $container->setParameter('velikonja_labby.config.process_timeout', $config['process_timeout']);

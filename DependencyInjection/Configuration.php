@@ -48,7 +48,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('charset')->end()
                     ->end()
                 ->end()
-                ->arrayNode('event_commands')
+                ->arrayNode('event_executors')
                     ->useAttributeAsKey('event_name')
                     ->beforeNormalization()
                         ->always()

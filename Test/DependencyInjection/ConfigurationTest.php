@@ -46,8 +46,6 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             $configuration,
             $config
         );
-
-        $this->assertTrue(true);
     }
 
     /**

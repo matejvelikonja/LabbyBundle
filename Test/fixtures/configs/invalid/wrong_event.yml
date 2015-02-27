@@ -2,6 +2,6 @@ velikonja_labby:
   remote:
     hostname: localhost
     path:     /tmp/labby-bundle-tests
-  event_commands:
+  event_executors:
       un-existing-event:
         - shell: "ls -lah"

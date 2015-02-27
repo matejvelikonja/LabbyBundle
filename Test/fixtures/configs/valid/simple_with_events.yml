@@ -2,7 +2,7 @@ velikonja_labby:
   remote:
     hostname: localhost
     path:     /tmp/labby-bundle-tests
-  event_commands:
+  event_executors:
       pre_sync:
         - shell: "ls -lah"
         - sf: "--version"
