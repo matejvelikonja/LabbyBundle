@@ -6,7 +6,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\ApplicationTester;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Filesystem\Filesystem;
-use Velikonja\LabbyBundle\Test\App\AppKernel;
+
+require_once __DIR__ . '/../app/VelikonjaLabbyBundleTestAppKernel.php';
 
 abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -33,7 +34,7 @@ abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $application = new Application(
-            new AppKernel('test', true)
+            new \VelikonjaLabbyBundleTestAppKernel('test', true)
         );
         $application->setAutoExit(false);
 

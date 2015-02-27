@@ -10,7 +10,7 @@ velikonja_labby:
   roles:           [ remote, local ]
   remote:
     hostname: localhost
-    path:     /tmp/labby-bundle-tests
+    path:     %kernel.root_dir%/..
 #    ??sf_env:   prod
   fs:
     timeout: 30
@@ -18,6 +18,11 @@ velikonja_labby:
       uploads:
         src: localhost:/tmp/labby-bundle-tests/src
         dst: /tmp/labby-bundle-tests/dst
+  event_executors:
+    pre_sync:
+      - shell: "whoami"
+    post_sync:
+      - sf: "cache:clear"
 doctrine:
   dbal:
     driver:   %database_driver%

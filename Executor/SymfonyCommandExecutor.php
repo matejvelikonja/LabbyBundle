@@ -22,8 +22,6 @@ class SymfonyCommandExecutor implements ExecutorInterface
      */
     public function execute($command, OutputInterface $output = null)
     {
-        $this->app->setAutoExit(false);
-
         $input = new StringInput($command);
 
         $exitCode = $this->app->run($input, $output);
@@ -34,8 +32,6 @@ class SymfonyCommandExecutor implements ExecutorInterface
             );
         }
 
-        $this->app->setAutoExit(true);
-
         return $exitCode;
     }
 
@@ -44,7 +40,8 @@ class SymfonyCommandExecutor implements ExecutorInterface
      */
     public function onConsoleCommand(ConsoleCommandEvent $event)
     {
-        $this->app = $event->getCommand()->getApplication();
+        $this->app = clone $event->getCommand()->getApplication();
+        $this->app->setAutoExit(false);
     }
 
     /**

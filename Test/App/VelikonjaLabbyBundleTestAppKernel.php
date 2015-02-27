@@ -1,11 +1,9 @@
 <?php
 
-namespace Velikonja\LabbyBundle\Test\App;
-
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
-class AppKernel extends Kernel
+class VelikonjaLabbyBundleTestAppKernel extends Kernel
 {
     /**
      * @return array|\Symfony\Component\HttpKernel\Bundle\BundleInterface[]
@@ -13,10 +11,10 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         return array(
-            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 
-            new \Velikonja\LabbyBundle\VelikonjaLabbyBundle(),
+            new Velikonja\LabbyBundle\VelikonjaLabbyBundle(),
         );
     }
 
