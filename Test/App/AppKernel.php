@@ -16,7 +16,7 @@ class AppKernel extends Kernel
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 
-            new \Velikonja\LabbyBundle\VelikonjaLabbyBundle()
+            new \Velikonja\LabbyBundle\VelikonjaLabbyBundle(),
         );
     }
 
@@ -25,7 +25,7 @@ class AppKernel extends Kernel
      */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load( __DIR__ .'/config.yml');
+        $loader->load(__DIR__ . '/config.yml');
     }
 
     /**
@@ -35,7 +35,7 @@ class AppKernel extends Kernel
      */
     public function getCacheDir()
     {
-        return __DIR__ .'/../../build/cache/'.$this->environment;
+        return __DIR__ . '/../../build/cache/' . $this->environment;
     }
 
     /**
@@ -45,6 +45,6 @@ class AppKernel extends Kernel
      */
     public function getLogDir()
     {
-        return __DIR__ .'/../../build/logs';
+        return __DIR__ . '/../../build/logs';
     }
 }

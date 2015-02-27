@@ -2,3 +2,4 @@ composer.lock
 vendor/
 build/
 bin/
+Test/App/parameters.yml

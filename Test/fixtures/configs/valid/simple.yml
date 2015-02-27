@@ -1,0 +1,4 @@
+velikonja_labby:
+  remote:
+    hostname: localhost
+    path:     /tmp/labby-bundle-tests

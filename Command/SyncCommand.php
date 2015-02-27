@@ -35,8 +35,7 @@ class SyncCommand extends BaseCommand
         $stopwatch = new Stopwatch();
 
         $stopwatch->start('sync');
-        $syncer->syncDb($output);
-        $syncer->syncFs($output);
+        $syncer->sync($output);
         $event = $stopwatch->stop('sync');
 
         $output->writeln('');

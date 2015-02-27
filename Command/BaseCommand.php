@@ -26,10 +26,14 @@ abstract class BaseCommand extends ContainerAwareCommand
      * Sets roles that are allowed to execute command.
      *
      * @param array $roles
+     *
+     * @return $this
      */
     public function setRoles(array $roles)
     {
         $this->roles = $roles;
+
+        return $this;
     }
 
     public function run(InputInterface $input, OutputInterface $output)
@@ -40,6 +44,8 @@ abstract class BaseCommand extends ContainerAwareCommand
     }
 
     /**
+     * TODO: check if this can be moved to event
+     *
      * @throws \Exception
      *
      * @return bool

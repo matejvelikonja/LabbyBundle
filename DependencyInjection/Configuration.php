@@ -5,6 +5,7 @@ namespace Velikonja\LabbyBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use SyncFS\Configuration\Configuration as SyncFSConfiguration;
+use Velikonja\LabbyBundle\Events;
 
 class Configuration implements ConfigurationInterface
 {
@@ -18,20 +19,6 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('password_reset')
-                    ->children()
-                        ->arrayNode('users')
-                            ->defaultValue(array(array('username' => 'admin', 'password' => 'admin')))
-                            ->requiresAtLeastOneElement()
-                            ->prototype('array')
-                                ->children()
-                                    ->scalarNode('username')->isRequired()->defaultValue('admin')->end()
-                                    ->scalarNode('password')->isRequired()->defaultValue('admin')->end()
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
                 ->scalarNode('process_timeout')->defaultValue(5 * 60)->end()
                 ->arrayNode('roles')
                     ->treatNullLike(array())
@@ -39,9 +26,10 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue(array('remote'))
                 ->end()
                 ->arrayNode('remote')
+                    ->isRequired()
                     ->children()
-                        ->scalarNode('hostname')->end()
-                        ->scalarNode('path')->end()
+                        ->scalarNode('hostname')->isRequired()->end()
+                        ->scalarNode('path')->isRequired()->end()
                         ->scalarNode('env')->defaultValue('prod')->end()
                     ->end()
                 ->end()
@@ -58,6 +46,40 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('user')->defaultValue('root')->end()
                         ->scalarNode('password')->defaultNull()->end()
                         ->scalarNode('charset')->end()
+                    ->end()
+                ->end()
+                ->arrayNode('event_executors')
+                    ->useAttributeAsKey('event_name')
+                    ->beforeNormalization()
+                        ->always()
+                        // prefix all events with bundle name
+                        ->then(function ($events) {
+                            $normalized = array();
+                            foreach ($events as $name => $value) {
+                                $normalized['velikonja_labby.' . $name] = $value;
+                            }
+                            return $normalized;
+                        })
+                    ->end()
+                    ->validate()
+                        ->ifTrue(function ($events) {
+                            $allEvents = Events::all();
+                            foreach ($events as $name => $value) {
+                                if (! in_array($name, $allEvents)) {
+                                    return true;
+                                }
+                            }
+
+                            return false;
+                        })
+                        ->thenInvalid("Event does not exists. \n%s")
+                    ->end()
+                    ->prototype('array')
+                        ->prototype('array')
+                            ->useAttributeAsKey('type')
+                            ->requiresAtLeastOneElement()
+                            ->prototype('scalar')->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end();
