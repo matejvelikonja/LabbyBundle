@@ -7,8 +7,6 @@ use Symfony\Component\Console\Tester\ApplicationTester;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Filesystem\Filesystem;
 
-require_once __DIR__ . '/../app/VelikonjaLabbyBundleTestAppKernel.php';
-
 abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
 {
     /**
