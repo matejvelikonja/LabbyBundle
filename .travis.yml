@@ -25,6 +25,8 @@ matrix:
     - env: SYMFONY_VERSION="dev-master"
 
 before_script:
+    - pwd
+    - ls -lah
     - composer self-update # Update composer as travis is not updating it.
     - >
         composer require --dev \

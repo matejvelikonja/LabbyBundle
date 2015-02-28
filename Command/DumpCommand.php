@@ -24,6 +24,7 @@ class DumpCommand extends BaseCommand
     protected function configure()
     {
         $this
+            ->setRoles(array(self::ROLE_REMOTE))
             ->setName(self::COMMAND_NAME)
             ->setDescription('Dump local database.')
             ->addArgument('file', InputArgument::OPTIONAL, 'File path to write to.')
@@ -32,8 +33,7 @@ class DumpCommand extends BaseCommand
                 'c',
                 InputOption::VALUE_NONE,
                 'Compress file. Works only if file argument is given.'
-            )
-            ->setRoles(array(self::ROLE_REMOTE));
+            );
     }
 
     /**

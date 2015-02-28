@@ -22,10 +22,10 @@ class ImportCommand extends BaseCommand
     protected function configure()
     {
         $this
+            ->setRoles(array(self::ROLE_LOCAL))
             ->setName(self::COMMAND_NAME)
             ->setDescription('Import SQL dump to local database.')
-            ->addArgument('file', InputArgument::REQUIRED, 'Location of SQL dump (compressed or uncompressed).')
-            ->setRoles(array(self::ROLE_LOCAL));
+            ->addArgument('file', InputArgument::REQUIRED, 'Location of SQL dump (compressed or uncompressed).');
     }
 
     /**

@@ -152,7 +152,7 @@ class SyncerDb
      * @param OutputInterface $output
      * @param int             $level
      *
-     * @return callable|null
+     * @return null|\Closure
      */
     private function getOutputCallback(OutputInterface $output, $level = 0)
     {
