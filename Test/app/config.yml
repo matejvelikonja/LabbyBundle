@@ -11,7 +11,7 @@ velikonja_labby:
   remote:
     hostname: localhost
     path:     %kernel.root_dir%/..
-#    ??sf_env:   prod
+    env:      test
   fs:
     timeout: 30
     maps:
