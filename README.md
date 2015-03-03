@@ -59,6 +59,8 @@ velikonja_labby:
 #      - shell: "whoami"
 #    post_sync:
 #      - sf: "cache:clear"
+#    post_sync.db:
+#      - sf: "fos:user:change-password admin admin"
 ```
 
 **Use the command to sync**
