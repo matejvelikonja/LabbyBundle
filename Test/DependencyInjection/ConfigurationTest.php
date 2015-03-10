@@ -71,13 +71,32 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function getConfigurationsPaths($type)
     {
-        $files = glob(__DIR__ . sprintf('/../fixtures/configs/%s/*.yml', $type));
-        $args  = array();
+        $files = glob(
+            $this->getConfigsDir() . sprintf('/%s/*.yml', $type)
+        );
+        $args = array();
 
         foreach ($files as $file) {
             $args[] = array($file);
         }
 
         return $args;
+    }
+
+    /**
+     * @return string
+     *
+     */
+    private function getConfigsDir()
+    {
+        $path = realpath(
+            __DIR__ . sprintf('/../fixtures/configs')
+        );
+
+        if (! $path) {
+            throw new \LogicException('Config dir does not exists.');
+        }
+
+        return $path;
     }
 }
