@@ -6,12 +6,14 @@ framework:
   test:   ~
 
 velikonja_labby:
-  process_timeout: 30
-  roles:           [ remote, local ]
+  process_timeout:    30
+  roles:             [ remote, local ]
   remote:
     hostname: localhost
     path:     %kernel.root_dir%/..
     env:      test
+  db:
+    recreate: true
   fs:
     timeout: 30
     maps:
