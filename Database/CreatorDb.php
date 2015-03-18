@@ -26,18 +26,23 @@ class CreatorDb
      */
     public function create(OutputInterface $output = null)
     {
-        $bufferedOutput = new BufferedOutput(OutputInterface::VERBOSITY_NORMAL, true);
-        $error          = false;
+        $error     = false;
+        $outputTmp = null;
+
+        // SF 2.3 does not have BufferedOutput
+        if (class_exists('Symfony\Component\Console\Output\BufferedOutput')) {
+            $outputTmp = new BufferedOutput(OutputInterface::VERBOSITY_NORMAL, true);
+        }
 
         try {
-            $this->executor->execute('doctrine:database:drop --force', $bufferedOutput);
+            $this->executor->execute('doctrine:database:drop --force', $outputTmp);
         } catch (\RuntimeException $e) {
             // catches an error if database does not exist
             $error = true;
         }
 
-        if (! $error) {
-            $output->write($bufferedOutput->fetch());
+        if (! $error && $outputTmp) {
+            $output->write($outputTmp->fetch());
         }
 
         $this->executor->execute('doctrine:database:create', $output);
