@@ -12,10 +12,12 @@
         <parameter key="velikonja_labby.service.db.syncer.class">Velikonja\LabbyBundle\Database\SyncerDb</parameter>
         <parameter key="velikonja_labby.service.db.dumper.class">Velikonja\LabbyBundle\Database\Mysql\MySqlDumper</parameter>
         <parameter key="velikonja_labby.service.db.importer.class">Velikonja\LabbyBundle\Database\Mysql\MySqlImporter</parameter>
+        <parameter key="velikonja_labby.service.db.creator.class">Velikonja\LabbyBundle\Database\CreatorDb</parameter>
         <parameter key="velikonja_labby.util.zip_archive.class">Velikonja\LabbyBundle\Util\ZipArchive</parameter>
         <parameter key="velikonja_labby.executor.executor_runner.class">Velikonja\LabbyBundle\Executor\ExecutorRunner</parameter>
         <parameter key="velikonja_labby.executor.shell.class">Velikonja\LabbyBundle\Executor\ShellExecutor</parameter>
         <parameter key="velikonja_labby.executor.sf.class">Velikonja\LabbyBundle\Executor\SymfonyCommandExecutor</parameter>
+        <parameter key="velikonja_labby.event.listener.recreate_database.class">Velikonja\LabbyBundle\Event\Listener\RecreateDatabaseListener</parameter>
     </parameters>
 
     <services>
@@ -51,8 +53,17 @@
             <argument>%velikonja_labby.config.db%</argument>
             <argument>%velikonja_labby.config.process_timeout%</argument>
         </service>
+        <service id="velikonja_labby.service.db.creator" class="%velikonja_labby.service.db.creator.class%">
+            <argument type="service" id="velikonja_labby.executor.sf"/>
+        </service>
 
         <service id="velikonja_labby.util.zip_archive" class="%velikonja_labby.util.zip_archive.class%">
+        </service>
+
+        <!-- Listener -->
+        <service id="velikonja_labby.event.listener.recreate_database" class="%velikonja_labby.event.listener.recreate_database.class%">
+            <argument type="service" id="velikonja_labby.service.db.creator"/>
+            <tag name="kernel.event_listener" event="velikonja_labby.pre_sync.db" method="onPreSyncDb"/>
         </service>
 
         <!-- Executors -->

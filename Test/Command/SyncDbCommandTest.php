@@ -31,4 +31,13 @@ class SyncDbCommandTest extends CommandTestCase
             'Wrong output of sync:db command detected.'
         );
     }
+
+    /**
+     * Test first drops test database and then runs basic execute to check if db_recreate works.
+     */
+    public function testExecuteWithoutExistingDatabase()
+    {
+        $this->dropTestDB();
+        $this->testExecute();
+    }
 }

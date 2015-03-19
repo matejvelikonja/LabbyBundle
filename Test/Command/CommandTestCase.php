@@ -57,7 +57,7 @@ abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
     /**
      * Drops the test database.
      */
-    private function dropTestDB()
+    protected function dropTestDB()
     {
         $exitCode = $this->tester->run(array(
             'command' => 'doctrine:database:drop',
@@ -75,7 +75,7 @@ abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
     /**
      * Create test database.
      */
-    private function createTestDB()
+    protected function createTestDB()
     {
         $exitCode = $this->tester->run(array(
             'command' => 'doctrine:database:create'
@@ -91,7 +91,7 @@ abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
     /**
      * Creates temporary folder.
      */
-    private function createTempDir()
+    protected function createTempDir()
     {
         $this->fs->remove($this->tmpDir);
         $this->fs->mkdir(
@@ -104,7 +104,7 @@ abstract class CommandTestCase extends \PHPUnit_Framework_TestCase
     /**
      * Remove temporary folder.
      */
-    private function removeTempDir()
+    protected function removeTempDir()
     {
         $this->fs->remove($this->tmpDir);
     }
