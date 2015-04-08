@@ -1,5 +1,7 @@
 # LabbyBundle
 
+[![Join the chat at https://gitter.im/matejvelikonja/LabbyBundle](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/matejvelikonja/LabbyBundle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/matejvelikonja/LabbyBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/matejvelikonja/LabbyBundle/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/matejvelikonja/LabbyBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/matejvelikonja/LabbyBundle/?branch=master)
 [![Build Status](https://travis-ci.org/matejvelikonja/LabbyBundle.svg?branch=master)](https://travis-ci.org/matejvelikonja/LabbyBundle)
