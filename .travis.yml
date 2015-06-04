@@ -30,7 +30,7 @@ matrix:
 
 before_install:
     - composer self-update # Update composer as travis is not updating it.
-    - free -h              # Show memory usage
+    - free -m              # Show memory usage
 
 install:
     - if [ "$SYMFONY_VERSION" != "" ]; then composer require --dev --no-update symfony/symfony=$SYMFONY_VERSION; fi
