@@ -28,12 +28,13 @@ matrix:
   allow_failures:
     - php: hhvm
 
-before_script:
+install:
     - composer self-update # Update composer as travis is not updating it.
     - if [ "$SYMFONY_VERSION" != "" ]; then composer require --dev --no-update symfony/symfony=$SYMFONY_VERSION; fi
     - if [ "$deps" = "low" ]; then composer update --prefer-lowest; fi
     - if [ "$deps" != "low" ]; then composer update --prefer-source; fi
 
+before_script:
     # Allow us to SSH passwordless to localhost
     - ssh-keygen -f ~/.ssh/id_rsa -N ""
     - cp ~/.ssh/{id_rsa.pub,authorized_keys}
