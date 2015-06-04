@@ -28,11 +28,14 @@ matrix:
   allow_failures:
     - php: hhvm
 
-install:
+before_install:
     - composer self-update # Update composer as travis is not updating it.
+    - free -h              # Show memory usage
+
+install:
     - if [ "$SYMFONY_VERSION" != "" ]; then composer require --dev --no-update symfony/symfony=$SYMFONY_VERSION; fi
-    - if [ "$deps" = "low" ]; then composer update --prefer-lowest; fi
-    - if [ "$deps" != "low" ]; then composer update --prefer-source; fi
+    - if [ "$deps" = "low" ]; then php -dmemory_limit=1G `which composer` update --prefer-lowest; fi
+    - if [ "$deps" != "low" ]; then php -dmemory_limit=1G `which composer` update --prefer-source; fi
 
 before_script:
     # Allow us to SSH passwordless to localhost
