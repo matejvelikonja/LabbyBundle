@@ -9,10 +9,8 @@ php:
   - hhvm
 
 env:
-    - SYMFONY_VERSION="2.3.*"
-    - SYMFONY_VERSION="2.5.*"
-    - SYMFONY_VERSION="2.6.*"
-    - SYMFONY_VERSION="2.7.x-dev"
+  global:
+    - SYMFONY_DEPRECATIONS_HELPER=weak
 
 addons:
   ssh_known_hosts:
@@ -20,16 +18,21 @@ addons:
 
 matrix:
   fast_finish: true
+  include:
+    - php: 5.3
+      env: deps="low"
+    - php: 5.5
+      env: SYMFONY_VERSION='2.3.*' SYMFONY_DEPRECATIONS_HELPER=strict
+    - php: 5.5
+      env: SYMFONY_VERSION='2.7.*'
   allow_failures:
     - php: hhvm
-    - env: SYMFONY_VERSION="2.7.x-dev"
 
 before_script:
     - composer self-update # Update composer as travis is not updating it.
-    - >
-        composer require --dev \
-          symfony/symfony:${SYMFONY_VERSION}
-    - phpenv rehash
+    - if [ "$SYMFONY_VERSION" != "" ]; then composer require --dev --no-update symfony/symfony=$SYMFONY_VERSION; fi
+    - if [ "$deps" = "low" ]; then composer update --prefer-lowest; fi
+    - if [ "$deps" != "low" ]; then composer update --prefer-source; fi
 
     # Allow us to SSH passwordless to localhost
     - ssh-keygen -f ~/.ssh/id_rsa -N ""
