@@ -29,7 +29,7 @@ matrix:
     - php: hhvm
 
 before_install:
-    - curl -sS https://getcomposer.org/installer | php
+    - wget http://getcomposer.org/composer.phar
 
 install:
     - if [ "$SYMFONY_VERSION" != "" ]; then php -d memory_limit=-1 composer.phar require --dev --no-update symfony/symfony=$SYMFONY_VERSION; fi
