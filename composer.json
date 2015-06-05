@@ -30,7 +30,7 @@
 
         "doctrine/doctrine-bundle": "~1.2",
         "friendsofsymfony/user-bundle": "*",
-        "symfony/phpunit-bridge": "^3.0@dev"
+        "symfony/phpunit-bridge": "2.7.x-dev"
     },
 
     "autoload": {
