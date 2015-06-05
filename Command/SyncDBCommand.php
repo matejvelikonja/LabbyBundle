@@ -5,6 +5,7 @@ namespace Velikonja\LabbyBundle\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Velikonja\LabbyBundle\Service\Syncer;
 
 class SyncDBCommand extends BaseCommand
 {
@@ -31,6 +32,7 @@ class SyncDBCommand extends BaseCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var Syncer $syncer */
         $syncer    = $this->getContainer()->get('velikonja_labby.service.syncer');
         $stopwatch = new Stopwatch();
 

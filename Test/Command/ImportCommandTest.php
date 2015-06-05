@@ -19,7 +19,7 @@ class ImportCommandTest extends CommandTestCase
             )
         );
 
-        $this->assertEquals(1, $exitCode);
+        $this->assertEquals(1, $exitCode, trim($this->tester->getDisplay()));
     }
 
     /**
