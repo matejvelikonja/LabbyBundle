@@ -29,13 +29,12 @@ matrix:
     - php: hhvm
 
 before_install:
-    - phpenv config-add Test/travis/php.ini
-    - composer self-update # Update composer as travis is not updating it.
+    - curl -sS https://getcomposer.org/installer | php
 
 install:
-    - if [ "$SYMFONY_VERSION" != "" ]; then composer require --dev --no-update symfony/symfony=$SYMFONY_VERSION; fi
-    - if [ "$deps" = "low" ]; then composer update --prefer-lowest; fi
-    - if [ "$deps" != "low" ]; then composer update --prefer-source; fi
+    - if [ "$SYMFONY_VERSION" != "" ]; then php -d memory_limit=-1 composer.phar require --dev --no-update symfony/symfony=$SYMFONY_VERSION; fi
+    - if [ "$deps" = "low" ]; then php -d memory_limit=-1 composer.phar update --prefer-lowest; fi
+    - if [ "$deps" != "low" ]; then php -d memory_limit=-1 composer.phar update --prefer-source; fi
 
 before_script:
     # Allow us to SSH passwordless to localhost
