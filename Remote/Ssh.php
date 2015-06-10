@@ -49,7 +49,7 @@ class Ssh
      * @param string               $command
      * @param null|OutputInterface $output
      *
-     * @throws \Exception
+     * @throws \RuntimeException
      */
     public function exec($command, OutputInterface $output = null)
     {
@@ -59,7 +59,7 @@ class Ssh
         );
 
         if (! $process->isSuccessful()) {
-            throw new \Exception($process->getErrorOutput());
+            throw new \RuntimeException($process->getErrorOutput());
         }
     }
 
@@ -70,7 +70,7 @@ class Ssh
      * @param string[]      $arguments
      * @param callable|null $callback
      *
-     * @throws \Exception
+     * @throws \RuntimeException
      */
     public function execSf($executable, array $arguments = array(), $callback = null)
     {
@@ -90,7 +90,7 @@ class Ssh
         $process->run($callback);
 
         if (! $process->isSuccessful()) {
-            throw new \Exception($process->getErrorOutput());
+            throw new \RuntimeException($process->getErrorOutput());
         }
     }
 }
