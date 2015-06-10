@@ -40,8 +40,6 @@ class ZipArchiveTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests if current file content is zipped.
-     *
-     * @throws \Exception
      */
     public function testSimpleZipOfContent()
     {

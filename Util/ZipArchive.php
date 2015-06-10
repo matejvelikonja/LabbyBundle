@@ -87,7 +87,7 @@ class ZipArchive
      * @param string $path
      * @param string $content
      *
-     * @throws \Exception
+     * @throws \RuntimeException
      */
     public function zip($path, $content)
     {
@@ -97,7 +97,7 @@ class ZipArchive
         $res = $zip->addFromString($this->compressedFileName, $content);
 
         if (! $res) {
-            throw new \Exception();
+            throw new \RuntimeException();
         }
 
         $zip->close();
