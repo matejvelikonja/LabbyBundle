@@ -57,6 +57,24 @@ class ZipArchiveTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests if unzipping works.
+     */
+    public function testSimpleUnzipOfContent()
+    {
+        $tmpZipFile = $this->tmpDir . '/test.zip';
+
+        $zip = new \ZipArchive($this->tmpDir);
+        $zip->open($tmpZipFile, \ZipArchive::CREATE);
+        $zip->addFromString('dump.sql', '');
+        $zip->close();
+
+        $zip          = new ZipArchive($this->tmpDir);
+        $unzippedFile = $zip->unzip($tmpZipFile);
+
+        $this->assertFileExists($unzippedFile, 'Unzipped file was not found.');
+    }
+
+    /**
      * @expectedException \InvalidArgumentException
      */
     public function testIfExceptionIsThrownWhenCompressedFileIsNotFound()
