@@ -17,7 +17,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidConfigurations($path)
     {
-        $config        = Yaml::parse($path);
+        $config        = Yaml::parse(file_get_contents($path));
         $processor     = new Processor();
         $configuration = new Configuration();
 
@@ -38,7 +38,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidConfigurations($path)
     {
-        $config        = Yaml::parse($path);
+        $config        = Yaml::parse(file_get_contents($path));
         $processor     = new Processor();
         $configuration = new Configuration();
 
