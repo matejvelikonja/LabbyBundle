@@ -38,6 +38,11 @@ class SyncerDb
     private $tmpDir;
 
     /**
+     * @var string
+     */
+    private $cacheDir;
+
+    /**
      * @param ImporterInterface $importer
      * @param Ssh               $ssh
      * @param Scp               $scp
@@ -56,23 +61,99 @@ class SyncerDb
         $this->scp      = $scp;
         $this->zip      = $zip;
         $this->tmpDir   = sys_get_temp_dir();
+        $this->cacheDir = $this->tmpDir . '/cache';
 
         if (!is_writable($this->tmpDir)) {
             throw new \Exception(
                 sprintf('Temporary directory `%s` is unreadable.', $this->tmpDir)
             );
         }
+
+        if (!is_dir($this->cacheDir)) {
+            mkdir($this->cacheDir);
+        }
     }
 
     /**
      * @param null|OutputInterface $output
-     *
-     * @throws DatabaseException
-     * @throws \Exception
+     * @param bool                 $cached
      */
-    public function sync(OutputInterface $output = null)
+    public function sync(OutputInterface $output = null, $cached = false)
     {
-        $output     = $output ?: new NullOutput();
+        $output = $output ?: new NullOutput();
+
+        if ($cached) {
+            $dumpFile = $this->getCachedDump($output);
+        } else {
+            $dumpFile = $this->getRemoteDump($output);
+        }
+
+        $this->write('Importing...', $output);
+        $this->importer->import($dumpFile, $this->getOutputCallback($output, 1));
+        $this->write(
+            sprintf(
+                "File `%s` imported.",
+                $dumpFile
+            ),
+            $output,
+            1
+        );
+
+        $this->write('Cleaning up...', $output);
+
+        // TODO: better cleaning up, since we should not delete the file afterwords
+        // TODO: cache the file
+        unlink($dumpFile);
+        $this->write(
+            sprintf(
+                "File `%s` removed.",
+                $dumpFile
+            ),
+            $output,
+            1
+        );
+    }
+
+    /**
+     * @param OutputInterface $output
+     * @param int             $level
+     *
+     * @return null|\Closure
+     */
+    private function getOutputCallback(OutputInterface $output, $level = 0)
+    {
+        if ($output->getVerbosity() < OutputInterface::VERBOSITY_VERBOSE) {
+            return null;
+        }
+
+        return function ($type, $buffer) use ($output, $level) {
+            $output->write(str_repeat(' ', $level * 2));
+            if (Process::ERR === $type) {
+                $output->writeln(sprintf('<error>%s</error>', $buffer));
+            } else {
+                $output->writeln(sprintf('%s', $buffer));
+            }
+        };
+    }
+
+    /**
+     * @param string          $string
+     * @param OutputInterface $output
+     * @param int             $level
+     */
+    private function write($string, OutputInterface $output, $level = 0)
+    {
+        $info = str_repeat(' ', $level * 2) . $string;
+        $output->writeln(sprintf('<comment>%s</comment>', $info));
+    }
+
+    /**
+     * @param OutputInterface $output
+     *
+     * @return string
+     */
+    protected function getRemoteDump(OutputInterface $output)
+    {
         $remoteFile = 'dump-remote.zip'; //TODO: improve location and name of remote file
         $localFile  = $this->tmpDir . '/labby_' . uniqid() . '.zip';
 
@@ -110,21 +191,6 @@ class SyncerDb
             1
         );
 
-        //TODO: recreate database
-
-        $this->write('Importing...', $output);
-        $this->importer->import($dumpFile, $this->getOutputCallback($output, 1));
-        $this->write(
-            sprintf(
-                "File `%s` imported.",
-                $dumpFile
-            ),
-            $output,
-            1
-        );
-
-        $this->write('Cleaning up...', $output);
-
         unlink($localFile);
         $this->write(
             sprintf(
@@ -135,49 +201,13 @@ class SyncerDb
             1
         );
 
-        unlink($dumpFile);
-        $this->write(
-            sprintf(
-                "File `%s` removed.",
-                $dumpFile
-            ),
-            $output,
-            1
-        );
-
         //TODO: remove remote file
+
+        return $dumpFile;
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param int             $level
-     *
-     * @return null|\Closure
-     */
-    private function getOutputCallback(OutputInterface $output, $level = 0)
+    private function getCachedDump($output)
     {
-        if ($output->getVerbosity() < OutputInterface::VERBOSITY_VERBOSE) {
-            return null;
-        }
 
-        return function ($type, $buffer) use ($output, $level) {
-            $output->write(str_repeat(' ', $level * 2));
-            if (Process::ERR === $type) {
-                $output->writeln(sprintf('<error>%s</error>', $buffer));
-            } else {
-                $output->writeln(sprintf('%s', $buffer));
-            }
-        };
-    }
-
-    /**
-     * @param string          $string
-     * @param OutputInterface $output
-     * @param int             $level
-     */
-    private function write($string, OutputInterface $output, $level = 0)
-    {
-        $info = str_repeat(' ', $level * 2) . $string;
-        $output->writeln(sprintf('<comment>%s</comment>', $info));
     }
 }

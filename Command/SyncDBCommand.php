@@ -3,6 +3,7 @@
 namespace Velikonja\LabbyBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Velikonja\LabbyBundle\Service\Syncer;
@@ -19,7 +20,8 @@ class SyncDBCommand extends BaseCommand
         $this
             ->setRoles(array(self::ROLE_LOCAL))
             ->setName(self::COMMAND_NAME)
-            ->setDescription('Run synchronization of database.');
+            ->setDescription('Run synchronization of database.')
+            ->addOption('use-cached-db', 'c', InputOption::VALUE_NONE, 'Use cached DB and do not fetch it from remote.');
     }
 
     /**
@@ -35,9 +37,10 @@ class SyncDBCommand extends BaseCommand
         /** @var Syncer $syncer */
         $syncer    = $this->getContainer()->get('velikonja_labby.service.syncer');
         $stopwatch = new Stopwatch();
+        $cached    = $input->getOption('use-cached-db');
 
         $stopwatch->start('sync_db');
-        $syncer->syncDb($output);
+        $syncer->syncDb($output, $cached);
         $event = $stopwatch->stop('sync_db');
 
         $output->writeln('');

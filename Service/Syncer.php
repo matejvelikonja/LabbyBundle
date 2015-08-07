@@ -64,17 +64,16 @@ class Syncer
 
     /**
      * @param OutputInterface $output
-     *
-     * @throws \Exception
+     * @param bool            $cached
      */
-    public function syncDb(OutputInterface $output)
+    public function syncDb(OutputInterface $output, $cached = false)
     {
         if (! $this->syncerDb) {
             throw new \RuntimeException('Syncer DB is not defined.');
         }
 
         $this->eventDispatcher->dispatch(Events::PRE_SYNC_DB, new SyncEvent($output));
-        $this->syncerDb->sync($output);
+        $this->syncerDb->sync($output, $cached);
         $this->eventDispatcher->dispatch(Events::POST_SYNC_DB, new SyncEvent($output));
     }
 }
