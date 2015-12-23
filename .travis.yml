@@ -27,10 +27,12 @@ matrix:
     - php: 5.5
       env: SYMFONY_VERSION="~2.7.0"
     - php: 5.5
-      env: SYMFONY_VERSION="3.0.x-dev as 2.8"
+      env: SYMFONY_VERSION="^3.0"
+    - php: 5.5
+      env: SYMFONY_VERSION="3.0.x-dev as 3.0"
   allow_failures:
     - php: nightly
-    - env: SYMFONY_VERSION="3.0.x-dev as 2.8"
+    - env: SYMFONY_VERSION="3.0.x-dev as 3.0"
 
 before_install:
     - wget http://getcomposer.org/composer.phar
