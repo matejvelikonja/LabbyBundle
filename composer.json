@@ -1,7 +1,7 @@
 {
     "name":        "velikonja/labby-bundle",
     "type":        "symfony-bundle",
-    "description": "Symfony2 bundle for retrieving database and assets from one stage to another.",
+    "description": "Symfony bundle for retrieving database and assets from one stage to another.",
     "keywords":    ["sync", "database", "assets", "symfony", "bundle", "twig"],
     "homepage":    "https://github.com/matejvelikonja/LabbyBundle",
     "license":     "MIT",
@@ -14,10 +14,10 @@
     ],
 
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.3.9",
 
-        "symfony/framework-bundle": "^2.3.1",
-        "symfony/symfony": "^2.3.1",
+        "symfony/framework-bundle": ">2.3.1",
+        "symfony/symfony": ">2.3.1",
 
         "velikonja/sync-fs": "~0.2"
     },
@@ -28,9 +28,9 @@
         "phpmd/phpmd": "~2.1",
         "sebastian/phpcpd": "~2.0",
 
-        "sensio/framework-extra-bundle": "~2.3",
+        "sensio/framework-extra-bundle": ">2.3",
 
-        "doctrine/doctrine-bundle": "~1.2",
+        "doctrine/doctrine-bundle": "^1.2",
         "friendsofsymfony/user-bundle": "*",
         "symfony/phpunit-bridge": "2.7.x-dev"
     },
