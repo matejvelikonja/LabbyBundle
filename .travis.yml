@@ -20,7 +20,7 @@ addons:
 matrix:
   fast_finish: true
   include:
-    - php: 5.3.3
+    - php: 5.3.9
       env: deps="low"
     - php: 5.5
       env: SYMFONY_VERSION="~2.3.1" SYMFONY_DEPRECATIONS_HELPER=strict
@@ -39,7 +39,6 @@ install:
     - if [ "$SYMFONY_VERSION" != "" ]; then php -d memory_limit=-1 composer.phar require --dev --no-update symfony/symfony=$SYMFONY_VERSION; fi
     - if [ "$deps" = "low" ]; then php -d memory_limit=-1 composer.phar update --prefer-lowest; fi
     - if [ "$deps" != "low" ]; then php -d memory_limit=-1 composer.phar update; fi
-    - php composer.phar show --installed
 
 before_script:
     # Allow us to SSH passwordless to localhost
