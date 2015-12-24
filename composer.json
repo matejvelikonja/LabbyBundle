@@ -1,7 +1,7 @@
 {
     "name":        "velikonja/labby-bundle",
     "type":        "symfony-bundle",
-    "description": "Symfony2 bundle for retrieving database and assets from one stage to another.",
+    "description": "Symfony bundle for retrieving database and assets from one stage to another.",
     "keywords":    ["sync", "database", "assets", "symfony", "bundle", "twig"],
     "homepage":    "https://github.com/matejvelikonja/LabbyBundle",
     "license":     "MIT",
