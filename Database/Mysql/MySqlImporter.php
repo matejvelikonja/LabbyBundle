@@ -69,13 +69,13 @@ class MySqlImporter implements ImporterInterface
     {
         $process = $this->processBuilder->getProcess();
 
-        $dump = file_get_contents($file);
+        $fp = fopen($file, 'r');
 
         if (method_exists($process, 'setInput')) {
-            $process->setInput($dump);
+            $process->setInput($fp);
         } else {
             // support for SF2.3
-            $process->setStdin($dump);
+            $process->setStdin($fp);
         }
 
         if ($callback) {
