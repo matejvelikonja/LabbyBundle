@@ -69,7 +69,12 @@ class MySqlImporter implements ImporterInterface
     {
         $process = $this->processBuilder->getProcess();
 
-        $fp = fopen($file, 'r');
+        if (class_exists('Symfony\Component\Process\Pipes\UnixPipe')) {
+            $fp = fopen($file, 'r');
+        } else {
+            // < Symfony 2.6
+            $fp = file_get_contents($file);
+        }
 
         if (method_exists($process, 'setInput')) {
             $process->setInput($fp);
