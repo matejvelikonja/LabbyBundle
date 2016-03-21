@@ -48,6 +48,16 @@ class VelikonjaLabbyExtension extends Extension implements PrependExtensionInter
     {
         $bundles = $container->getParameter('kernel.bundles');
 
+        $allowedKeys = array(
+            'driver',
+            'dbname',
+            'host',
+            'port',
+            'user',
+            'password',
+            'charset',
+        );
+
         if (isset($bundles['DoctrineBundle'])) {
             $doctrineConfig = $container->getExtensionConfig('doctrine');
 
@@ -55,7 +65,8 @@ class VelikonjaLabbyExtension extends Extension implements PrependExtensionInter
             $length = count($doctrineConfig);
             for ($i = 0; $i < $length; $i++) {
                 if (isset($doctrineConfig[$i]['dbal'])) {
-                    $container->prependExtensionConfig('velikonja_labby', array('db' => $doctrineConfig[$i]['dbal']));
+                    $output = array_intersect_key($doctrineConfig[$i]['dbal'], array_flip($allowedKeys));
+                    $container->prependExtensionConfig('velikonja_labby', array('db' => $output));
                     break;
                 }
             }
