@@ -32,7 +32,7 @@ class MySqlImporter implements ImporterInterface
         ProcessBuilder $processBuilder = null
     ) {
         if (! $executable) {
-            $executable = '/usr/bin/mysql';
+            $executable = 'mysql';
         }
 
         $this->executable = $executable;
